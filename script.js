@@ -1,6 +1,21 @@
 const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
 
+/* =====================
+   คลิก → ไปหน้า product
+===================== */
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    const model = card.dataset.model;
+    if (model) {
+      window.location.href = `product.html?model=${model}`;
+    }
+  });
+});
+
+/* =====================
+   หา card ตรงกลาง
+===================== */
 function updateActiveCard() {
   const center = window.innerWidth / 2;
 
@@ -17,7 +32,7 @@ function updateActiveCard() {
       closestCard = card;
     }
 
-    // smooth blur/scale ตามระยะ (สมูทมาก)
+    // เอฟเฟกต์ระหว่างเลื่อน
     const scale = Math.max(0.85, 1 - distance / 800);
     const blur = Math.min(3, distance / 120);
 
@@ -27,58 +42,19 @@ function updateActiveCard() {
   });
 
   cards.forEach(c => c.classList.remove('active'));
-  if (closestCard) closestCard.classList.add('active');
+  if (closestCard) {
+    closestCard.classList.add('active');
+  }
 }
 
-/* สมูทแบบ real-time */
+/* =====================
+   เรียกตอน scroll
+===================== */
+let scrollTimeout;
 track.addEventListener('scroll', () => {
-  requestAnimationFrame(updateActiveCard);
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(updateActiveCard, 80);
 });
 
-/* คลิกไป product */
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    const model = card.dataset.model;
-    window.location.href = `product.html?model=${model}`;
-  });
-});
-
-/* เริ่มต้น */
+/* เรียกครั้งแรก */
 updateActiveCard();
-cards[0].scrollTimeout = setTimeout(() => {
-  const centerCard = getCenterCard();
-  setActiveCard(centerCard);
-}, 120);
-const navLinks = document.querySelectorAll('.main-nav a');
-
-navLinks.forEach(link => {
-  link.addEventListener('click', e => {
-
-    // ถ้าเป็น Agent ให้ไปหน้าอื่น ไม่ต้อง active
-    if (link.classList.contains('agent-link')) return;
-
-    e.preventDefault();
-
-    // ลบ active ทุกตัว
-    navLinks.forEach(l => l.classList.remove('active'));
-
-    // ใส่ active ตัวที่กด
-    link.classList.add('active');
-  });
-});
-<script>
-  const navLinks = document.querySelectorAll('.main-nav a');
-
-  navLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      // ถ้าเป็น Agent ปล่อยให้ไปหน้าอื่น
-      if (link.classList.contains('agent-link')) return;
-
-      e.preventDefault();
-
-      navLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-    });
-  });
-</script>
-
