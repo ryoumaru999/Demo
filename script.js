@@ -37,6 +37,9 @@ function setActiveCard(card) {
     block: 'nearest'
   });
 }
+  function goProduct(model){
+  window.location.href = "product.html?model=" + model;
+}
 
 // 🔑 รอ scroll หยุดจริง (debounce)
 track.addEventListener('scroll', () => {
