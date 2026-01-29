@@ -31,24 +31,31 @@ html,body{
   opacity:1;
 }
 
-.carousel{
-  height:100vh;
-  display:flex;
-  align-items:center;
+.carousel {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
 }
 
 .track {
-  display: flex;
+  display: flex;              /* 🔥 สำคัญ */
   gap: 20px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
   padding: 40px;
 }
 
 .card {
+  scroll-snap-align: center;
+  min-width: 260px;
+  height: 420px;
+  border-radius: 28px;
+  background: linear-gradient(180deg,#111,#000);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
   transform: scale(.88);
   filter: blur(1.5px);
-  transition: .35s ease;
+  transition: .4s ease;
 }
 
 .card.active {
