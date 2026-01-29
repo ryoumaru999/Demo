@@ -1,82 +1,54 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>รายละเอียดสินค้า</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PhoneNow | Product</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="product.css">
 </head>
+
 <body class="product-page">
 
-  <header class="topbar">
-    <div class="logo">PhoneNow</div>
-  </header>
+<header class="topbar">
+  <div class="logo">PhoneNow</div>
+</header>
 
-  <main id="product"></main>
+<section class="product-hero">
+  <div class="phone-view">
+    <img id="phoneImage"
+         src="https://images.apple.com/v/iphone-16-pro-max/a/images/overview/design/finish_titanium__b9l4z0a0d2oi_large.jpg"
+         alt="iPhone">
+  </div>
+</section>
 
-  <script>
-    // 1️⃣ อ่าน model จาก URL
-    const params = new URLSearchParams(window.location.search);
-    const model = params.get('model');
+<section class="product-info">
+  <h1 id="modelName">iPhone</h1>
+  <p class="price" id="priceText">เริ่ม / ด.</p>
 
-    // 2️⃣ ฐานข้อมูลสินค้า (แก้ / เพิ่มได้)
-    const PRODUCTS = {
-      "iphone-17-pro-max": {
-        name: "iPhone 17 Pro Max",
-        price: "เริ่ม 1,499 / ด.",
-        image: "https://dummyimage.com/600x600/000/fff&text=iPhone+17+Pro+Max"
-      },
-      "iphone-16-pro-max": {
-        name: "iPhone 16 Pro Max",
-        price: "เริ่ม 1,399 / ด.",
-        image: "https://dummyimage.com/600x600/000/fff&text=iPhone+16+Pro+Max"
-      },
-      "iphone-15-pro-max": {
-        name: "iPhone 15 Pro Max",
-        price: "เริ่ม 1,299 / ด.",
-        image: "https://dummyimage.com/600x600/000/fff&text=iPhone+15+Pro+Max"
-      }
-    };
+  <div class="option">
+    <h3>ความจุ</h3>
+    <div class="choices">
+      <button class="active">256GB</button>
+      <button>512GB</button>
+      <button>1TB</button>
+    </div>
+  </div>
 
-    const data = PRODUCTS[model];
+  <div class="option">
+    <h3>สี</h3>
+    <div class="choices colors">
+      <button data-color="silver" class="active"></button>
+      <button data-color="black"></button>
+      <button data-color="gold"></button>
+    </div>
+  </div>
 
-    // 3️⃣ ถ้า model ไม่ถูก
-    if (!data) {
-      document.getElementById('product').innerHTML = `
-        <h2>ไม่พบสินค้า</h2>
-        <a href="index.html">← กลับหน้าแรก</a>
-      `;
-    } else {
-      document.getElementById('product').innerHTML = `
-        <section class="product-hero">
-          <img src="${data.image}" alt="${data.name}">
-          <h1>${data.name}</h1>
-          <p class="price">${data.price}</p>
-        </section>
+  <button class="buy">เลือกแผนผ่อน</button>
+</section>
 
-        <section class="options">
-          <h3>ความจุ</h3>
-          <div class="chips">
-            <button>256GB</button>
-            <button>512GB</button>
-            <button>1TB</button>
-          </div>
-
-          <h3>สี</h3>
-          <div class="chips">
-            <button>ดำ</button>
-            <button>เงิน</button>
-            <button>ทอง</button>
-          </div>
-        </section>
-
-        <section class="actions">
-          <button class="primary">เลือกแผนผ่อน</button>
-        </section>
-      `;
-    }
-  </script>
-
+<script src="product.js"></script>
 </body>
 </html>
 </section>
