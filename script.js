@@ -1,7 +1,44 @@
 const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
 
-/* คลิกเข้า product */
+let scrollTimeout;
+
+/* หา card ที่อยู่กลางจอ */
+function getCenterCard() {
+  const center = window.innerWidth / 2;
+  let closest = null;
+  let minDistance = Infinity;
+
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.left + rect.width / 2;
+    const distance = Math.abs(center - cardCenter);
+
+    if (distance < minDistance) {
+      minDistance = distance;
+      closest = card;
+    }
+  });
+
+  return closest;
+}
+
+/* ตั้ง active */
+function setActiveCard(card) {
+  if (!card) return;
+  cards.forEach(c => c.classList.remove('active'));
+  card.classList.add('active');
+}
+ function setActiveNav(filter) {
+  navLinks.forEach(link => {
+    link.classList.toggle(
+      'active',
+      link.dataset.filter === filter
+    );
+  });
+}
+
+/* click เข้า product */
 cards.forEach(card => {
   card.addEventListener('click', () => {
     const model = card.dataset.model;
@@ -11,32 +48,21 @@ cards.forEach(card => {
   });
 });
 
-/* หา card ตรงกลาง */
-function updateActiveCard() {
-  const center = window.innerWidth / 2;
-  let closestCard = null;
-  let closestDistance = Infinity;
-
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    const cardCenter = rect.left + rect.width / 2;
-    const distance = Math.abs(center - cardCenter);
-
-    if (distance < closestDistance) {
-      closestDistance = distance;
-      closestCard = card;
-    }
-  });
-
-  cards.forEach(c => c.classList.remove('active'));
-  if (closestCard) closestCard.classList.add('active');
-}
-
-/* ตอนเลื่อน */
-let scrollTimeout;
+/* scroll = Apple style */
 track.addEventListener('scroll', () => {
   clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(updateActiveCard, 80);
+
+  // อัปเดตเร็วขณะเลื่อน (เนียน)
+  requestAnimationFrame(() => {
+    setActiveCard(getCenterCard());
+  });
+
+  // ล็อกตอนหยุดเลื่อน
+  scrollTimeout = setTimeout(() => {
+    setActiveCard(getCenterCard());
+  }, 80);
 });
 
-updateActiveCard();
+/* โหลดครั้งแรก */
+setActiveCard(getCenterCard());
+
