@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>เลือกแผนผ่อน</title>
+
+<style>
+:root {
+  --bg: #ffffff;
+  --border: #e5e5ea;
+  --text: #111;
+  --sub: #6e6e73;
+  --accent: #007aff;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  color: var(--sub);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+/* ---- accordion ---- */
+
+.plan {
+  border-top: 1px solid var(--border);
+}
+
+.plan:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0;
+  cursor: pointer;
+}
+
+.plan-header strong {
+  font-size: 18px;
+}
+
+.price {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.plan-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease;
+}
+
+.plan-body-inner {
+  padding-bottom: 18px;
+  color: var(--sub);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.plan.active .plan-body {
+  max-height: 200px;
+}
+
+.badge {
+  display: inline-block;
+  background: #f2f2f7;
+  color: #000;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  margin-top: 8px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h1>เลือกแผนผ่อน</h1>
+  <div class="subtitle">แตะที่แผนเพื่อดูรายละเอียด</div>
+
+  <div class="plan">
+    <div class="plan-header">
+      <strong>18 เดือน</strong>
+      <span class="price">999 บาท / เดือน</span>
+    </div>
+    <div class="plan-body">
+      <div class="plan-body-inner">
+        รวมทั้งหมดประมาณ 17,982 บาท<br>
+        <span class="badge">แนะนำ • ยอดนิยม</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="plan">
+    <div class="plan-header">
+      <strong>12 เดือน</strong>
+      <span class="price">1,299 บาท / เดือน</span>
+    </div>
+    <div class="plan-body">
+      <div class="plan-body-inner">
+        ผ่อนสั้น จบไว<br>
+        เหมาะกับคนทำงาน
+      </div>
+    </div>
+  </div>
+
+  <div class="plan">
+    <div class="plan-header">
+      <strong>24 เดือน</strong>
+      <span class="price">799 บาท / เดือน</span>
+    </div>
+    <div class="plan-body">
+      <div class="plan-body-inner">
+        ผ่อนเบาสุด<br>
+        ภาระต่อเดือนต่ำ
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('.plan-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const plan = header.parentElement;
+    document.querySelectorAll('.plan').forEach(p => {
+      if (p !== plan) p.classList.remove('active');
+    });
+    plan.classList.toggle('active');
+  });
+});
+</script>
+</body>
+</html>
