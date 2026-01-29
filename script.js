@@ -1,9 +1,11 @@
 const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
 
+let scrollTimeout = null;
+
 function getCenterCard() {
   const trackRect = track.getBoundingClientRect();
-  const trackCenter = trackRect.left + trackRect.width / 2;
+  const centerX = trackRect.left + trackRect.width / 2;
 
   let closestCard = null;
   let closestDistance = Infinity;
@@ -11,7 +13,7 @@ function getCenterCard() {
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
     const cardCenter = rect.left + rect.width / 2;
-    const distance = Math.abs(trackCenter - cardCenter);
+    const distance = Math.abs(centerX - cardCenter);
 
     if (distance < closestDistance) {
       closestDistance = distance;
@@ -24,30 +26,28 @@ function getCenterCard() {
 
 function setActiveCard(card) {
   cards.forEach(c => c.classList.remove('active'));
-  if (card) card.classList.add('active');
+  card.classList.add('active');
+
+  card.scrollIntoView({
+    behavior: 'smooth',
+    inline: 'center',
+    block: 'nearest'
+  });
 }
 
-// ✅ ตอนเลื่อน (สำคัญ)
-let scrollTimeout;
+// scroll แล้วค่อยเลือก
 track.addEventListener('scroll', () => {
-  clearTimeout(scrollTimeout);
+  if (scrollTimeout) clearTimeout(scrollTimeout);
+
   scrollTimeout = setTimeout(() => {
-    setActiveCard(getCenterCard());
-  }, 80);
+    const centerCard = getCenterCard();
+    if (centerCard) setActiveCard(centerCard);
+  }, 120);
 });
 
-// ✅ ตอนโหลดหน้า → โฟกัสใบแรก
-window.addEventListener('load', () => {
-  setActiveCard(getCenterCard());
-});
-
-// ✅ คลิก = เลือกทันที + ไปหน้า product
+// คลิก = เลือกทันที
 cards.forEach(card => {
   card.addEventListener('click', () => {
     setActiveCard(card);
-    const model = card.dataset.model;
-    if (model) {
-      window.location.href = `product.html?model=${model}`;
-    }
   });
 });
