@@ -26,8 +26,10 @@ function getCenterCard() {
 /* ตั้ง active */
 function setActiveCard(card) {
   if (!card) return;
-  cards.forEach(c => c.classList.remove('active'));
-  card.classList.add('active');
+  cards.forEach(c => c.classList.remove('is-active'));
+if (closestCard) {
+  closestCard.classList.add('is-active');
+}
 }
  function setActiveNav(filter) {
   navLinks.forEach(link => {
@@ -54,11 +56,8 @@ track.addEventListener('scroll', () => {
   clearTimeout(scrollTimeout);
 
   scrollTimeout = setTimeout(() => {
-    const centerCard = getCenterCard();
-    setActiveCard(centerCard);
-  }, 80); // 👈 สำคัญ
-});
-
+  setActiveCard(getCenterCard());
+}, 0);
 /* โหลดครั้งแรก */
 setActiveCard(getCenterCard());
 
