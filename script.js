@@ -50,14 +50,24 @@ cards.forEach(card => {
   });
 });
 
-let scrollTimeout;
+let isScrolling;
+let rafId = null;
 
 track.addEventListener('scroll', () => {
-  clearTimeout(scrollTimeout);
+  // ระหว่างเลื่อน: ยกเลิก snap
+  if (rafId) cancelAnimationFrame(rafId);
 
-  scrollTimeout = setTimeout(() => {
-  setActiveCard(getCenterCard());
-}, 0);
+  // แค่ดูว่ากลางคือใคร (ไม่ใส่ active)
+  rafId = requestAnimationFrame(() => {
+    previewCenterCard();
+  });
+
+  // หลังหยุดเลื่อน
+  clearTimeout(isScrolling);
+  isScrolling = setTimeout(() => {
+    snapToCenter();
+  }, 120); // 👈 จุดสำคัญ
+});
 /* โหลดครั้งแรก */
 setActiveCard(getCenterCard());
 
