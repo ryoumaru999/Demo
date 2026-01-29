@@ -1,12 +1,15 @@
+/* ===== RESET ===== */
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
   background: #000;
   color: #fff;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
 }
 
 /* ===== TOP BAR ===== */
@@ -17,9 +20,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 20px;
-  background: rgba(0,0,0,.85);
-  backdrop-filter: blur(10px);
+  padding: 16px 20px;
+  background: rgba(0,0,0,.9);
 }
 
 .logo {
@@ -51,23 +53,17 @@ body {
   width: 100%;
   height: 2px;
   background: #fff;
-  border-radius: 2px;
-}
-
-.agent-link {
-  color: #aaa;
 }
 
 /* ===== CAROUSEL ===== */
 .carousel {
   padding: 40px 0;
-  overflow: hidden;
 }
 
 .track {
   display: flex;
-  gap: 20px;
-  padding: 0 50vw;
+  gap: 24px;
+  padding: 0 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -80,7 +76,7 @@ body {
 /* ===== CARD ===== */
 .card {
   scroll-snap-align: center;
-  min-width: 260px;
+  min-width: 280px;
   height: 420px;
   border-radius: 28px;
   background: linear-gradient(180deg, #111, #000);
@@ -91,9 +87,10 @@ body {
   justify-content: flex-end;
   align-items: center;
 
-  transform: scale(0.9);
-  opacity: 0.35;
   transition: transform .35s ease, opacity .35s ease;
+  opacity: .4;
+  transform: scale(.88);
+
   cursor: pointer;
 }
 
@@ -101,8 +98,18 @@ body {
   width: 100%;
   height: 65%;
   object-fit: contain;
-  margin-bottom: 12px;
-  pointer-events: none; /* ⭐ สำคัญ */
+  margin-bottom: 16px;
+  pointer-events: none;
+}
+
+.card h2 {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.card p {
+  color: #aaa;
+  font-size: 14px;
 }
 
 /* active card */
