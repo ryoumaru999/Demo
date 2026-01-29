@@ -70,6 +70,27 @@ body {
 
   transform: scale(0.9);
   opacity: 0.35;
+}
+
+/* รูปสินค้า */
+.card img {
+  width: 100%;
+  height: 65%;
+  object-fit: contain;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,.6));
+  transition: .3s;
+}
+
+/* การ์ดที่ถูกเลือก */
+.card.active {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.card.active img {
+  transform: scale(1.05);
+}
 
   /* สำคัญ */
   transition: transform .12s ease, opacity .12s ease;
