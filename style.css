@@ -77,3 +77,11 @@ html,body{
   margin-top:8px;
   opacity:.7;
 }
+.track {
+  scroll-snap-type: x mandatory;
+}
+
+.card {
+  scroll-snap-align: center;
+}
+
