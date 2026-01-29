@@ -1,29 +1,82 @@
-<!-- เลือกรุ่น / ความจุ / สี -->
-<section id="selectStep">
-  <h3 id="productName"></h3>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>รายละเอียดสินค้า</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="product-page">
 
-  <h4>ความจุ</h4>
-  <div class="options">
-    <button onclick="selectOption('256')">256GB</button>
-    <button onclick="selectOption('512')">512GB</button>
-    <button onclick="selectOption('1TB')">1TB</button>
-  </div>
+  <header class="topbar">
+    <div class="logo">PhoneNow</div>
+  </header>
 
-  <h4>สี</h4>
-  <div class="options">
-    <button onclick="selectColor('black')">ดำ</button>
-    <button onclick="selectColor('white')">ขาว</button>
-  </div>
+  <main id="product"></main>
 
-  <button class="next" onclick="goInstallment()">ถัดไป</button>
-</section>
+  <script>
+    // 1️⃣ อ่าน model จาก URL
+    const params = new URLSearchParams(window.location.search);
+    const model = params.get('model');
 
-<!-- ตารางผ่อน (ซ่อนก่อน) -->
-<section id="installmentStep" style="display:none">
-  <h3>แผนผ่อน</h3>
-  <ul>
-    <li>12 เดือน — 1,299 บาท</li>
-    <li class="active">18 เดือน — 1,099 บาท</li>
-    <li>24 เดือน — 899 บาท</li>
-  </ul>
+    // 2️⃣ ฐานข้อมูลสินค้า (แก้ / เพิ่มได้)
+    const PRODUCTS = {
+      "iphone-17-pro-max": {
+        name: "iPhone 17 Pro Max",
+        price: "เริ่ม 1,499 / ด.",
+        image: "https://dummyimage.com/600x600/000/fff&text=iPhone+17+Pro+Max"
+      },
+      "iphone-16-pro-max": {
+        name: "iPhone 16 Pro Max",
+        price: "เริ่ม 1,399 / ด.",
+        image: "https://dummyimage.com/600x600/000/fff&text=iPhone+16+Pro+Max"
+      },
+      "iphone-15-pro-max": {
+        name: "iPhone 15 Pro Max",
+        price: "เริ่ม 1,299 / ด.",
+        image: "https://dummyimage.com/600x600/000/fff&text=iPhone+15+Pro+Max"
+      }
+    };
+
+    const data = PRODUCTS[model];
+
+    // 3️⃣ ถ้า model ไม่ถูก
+    if (!data) {
+      document.getElementById('product').innerHTML = `
+        <h2>ไม่พบสินค้า</h2>
+        <a href="index.html">← กลับหน้าแรก</a>
+      `;
+    } else {
+      document.getElementById('product').innerHTML = `
+        <section class="product-hero">
+          <img src="${data.image}" alt="${data.name}">
+          <h1>${data.name}</h1>
+          <p class="price">${data.price}</p>
+        </section>
+
+        <section class="options">
+          <h3>ความจุ</h3>
+          <div class="chips">
+            <button>256GB</button>
+            <button>512GB</button>
+            <button>1TB</button>
+          </div>
+
+          <h3>สี</h3>
+          <div class="chips">
+            <button>ดำ</button>
+            <button>เงิน</button>
+            <button>ทอง</button>
+          </div>
+        </section>
+
+        <section class="actions">
+          <button class="primary">เลือกแผนผ่อน</button>
+        </section>
+      `;
+    }
+  </script>
+
+</body>
+</html>
 </section>
