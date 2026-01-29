@@ -1,7 +1,35 @@
-const track = document.querySelector('.carousel');
+const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
 
-/* ===== CLICK เข้า product ===== */
+/* หา card ตรงกลาง */
+function updateActiveCard() {
+  const center = window.innerWidth / 2;
+  let closest = null;
+  let closestDistance = Infinity;
+
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.left + rect.width / 2;
+    const distance = Math.abs(center - cardCenter);
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closest = card;
+    }
+  });
+
+  cards.forEach(c => c.classList.remove('active'));
+  if (closest) closest.classList.add('active');
+}
+
+/* scroll → คำนวณใหม่ */
+let scrollTimeout;
+track.addEventListener('scroll', () => {
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(updateActiveCard, 80);
+});
+
+/* click → เข้า product */
 cards.forEach(card => {
   card.addEventListener('click', () => {
     const model = card.dataset.model;
@@ -11,32 +39,5 @@ cards.forEach(card => {
   });
 });
 
-/* ===== ACTIVE CARD ===== */
-function updateActiveCard() {
-  const center = window.innerWidth / 2;
-  let closest = null;
-  let min = Infinity;
-
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    const cardCenter = rect.left + rect.width / 2;
-    const distance = Math.abs(center - cardCenter);
-
-    if (distance < min) {
-      min = distance;
-      closest = card;
-    }
-  });
-
-  cards.forEach(c => c.classList.remove('active'));
-  if (closest) closest.classList.add('active');
-}
-
-/* ===== SCROLL ===== */
-let scrollTimeout;
-track.addEventListener('scroll', () => {
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(updateActiveCard, 80);
-});
-
+/* ครั้งแรก */
 updateActiveCard();
