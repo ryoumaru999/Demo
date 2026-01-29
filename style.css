@@ -84,11 +84,13 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 14px 20px;
-  background: rgba(0,0,0,.85);
+  background: rgba(0,0,0,.88);
   backdrop-filter: blur(10px);
 }
 
@@ -97,19 +99,27 @@ body {
   font-size: 20px;
   font-weight: 600;
   letter-spacing: .4px;
+  white-space: nowrap;
 }
 
 /* เมนู */
 .main-nav {
   display: flex;
+  align-items: center;
   gap: 22px;
+
+  flex-wrap: nowrap;        /* ❗ ห้ามตัดบรรทัด */
+  white-space: nowrap;      /* ❗ กันคำไทยแตก */
 }
 
+/* ลิงก์เมนู */
 .main-nav a {
   font-size: 15px;
   color: #888;
   text-decoration: none;
-  transition: .25s;
+  transition: color .25s ease;
+
+  white-space: nowrap;      /* ❗ สำคัญมาก */
 }
 
 /* hover */
@@ -123,6 +133,7 @@ body {
   position: relative;
 }
 
+/* ขีดใต้แบบ Apple */
 .main-nav a.active::after {
   content: '';
   position: absolute;
@@ -134,9 +145,23 @@ body {
   border-radius: 2px;
 }
 
-/* agent เน้นนิดนึง */
+/* Agent เน้นนิดเดียว ไม่แย่งสายตา */
 .agent-link {
   color: #aaa;
   font-weight: 500;
 }
 
+.agent-link:hover {
+  color: #fff;
+}
+
+/* ===== MOBILE FIX ===== */
+@media (max-width: 420px) {
+  .main-nav {
+    gap: 14px;
+  }
+
+  .main-nav a {
+    font-size: 14px;
+  }
+}
