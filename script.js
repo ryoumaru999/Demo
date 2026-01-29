@@ -66,4 +66,19 @@ navLinks.forEach(link => {
     link.classList.add('active');
   });
 });
+<script>
+  const navLinks = document.querySelectorAll('.main-nav a');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      // ถ้าเป็น Agent ปล่อยให้ไปหน้าอื่น
+      if (link.classList.contains('agent-link')) return;
+
+      e.preventDefault();
+
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+</script>
 
