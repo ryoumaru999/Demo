@@ -46,5 +46,6 @@ cards.forEach(card => {
 /* เริ่มต้น */
 updateActiveCard();
 cards[0].scrollTimeout = setTimeout(() => {
-  setActiveCard(getCenterCard());
-}, 0);
+  const centerCard = getCenterCard();
+  setActiveCard(centerCard);
+}, 120);
