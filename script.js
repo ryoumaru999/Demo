@@ -49,3 +49,21 @@ cards[0].scrollTimeout = setTimeout(() => {
   const centerCard = getCenterCard();
   setActiveCard(centerCard);
 }, 120);
+const navLinks = document.querySelectorAll('.main-nav a');
+
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+
+    // ถ้าเป็น Agent ให้ไปหน้าอื่น ไม่ต้อง active
+    if (link.classList.contains('agent-link')) return;
+
+    e.preventDefault();
+
+    // ลบ active ทุกตัว
+    navLinks.forEach(l => l.classList.remove('active'));
+
+    // ใส่ active ตัวที่กด
+    link.classList.add('active');
+  });
+});
+
