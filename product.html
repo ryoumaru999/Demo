@@ -1,23 +1,29 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Product</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<!-- เลือกรุ่น / ความจุ / สี -->
+<section id="selectStep">
+  <h3 id="productName"></h3>
 
-<h1 id="title"></h1>
-<p id="model"></p>
+  <h4>ความจุ</h4>
+  <div class="options">
+    <button onclick="selectOption('256')">256GB</button>
+    <button onclick="selectOption('512')">512GB</button>
+    <button onclick="selectOption('1TB')">1TB</button>
+  </div>
 
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const model = params.get("model");
+  <h4>สี</h4>
+  <div class="options">
+    <button onclick="selectColor('black')">ดำ</button>
+    <button onclick="selectColor('white')">ขาว</button>
+  </div>
 
-  document.getElementById("title").innerText = "รายละเอียดสินค้า";
-  document.getElementById("model").innerText = model;
-</script>
+  <button class="next" onclick="goInstallment()">ถัดไป</button>
+</section>
 
-</body>
-</html>
+<!-- ตารางผ่อน (ซ่อนก่อน) -->
+<section id="installmentStep" style="display:none">
+  <h3>แผนผ่อน</h3>
+  <ul>
+    <li>12 เดือน — 1,299 บาท</li>
+    <li class="active">18 เดือน — 1,099 บาท</li>
+    <li>24 เดือน — 899 บาท</li>
+  </ul>
+</section>
