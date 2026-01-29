@@ -1,42 +1,59 @@
 const track = document.querySelector('.track');
-const cards = document.querySelectorAll('.card');
+const cards = Array.from(document.querySelectorAll('.card'));
 
-function updateActiveCard() {
+let scrollTimeout = null;
+
+function getCenterCard() {
   const trackRect = track.getBoundingClientRect();
-  const trackCenter = trackRect.left + trackRect.width / 2;
+  const centerX = trackRect.left + trackRect.width / 2;
 
-  let closestCard = null;
-  let closestDistance = Infinity;
+  let closest = null;
+  let minDistance = Infinity;
 
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
     const cardCenter = rect.left + rect.width / 2;
-    const distance = Math.abs(trackCenter - cardCenter);
+    const distance = Math.abs(centerX - cardCenter);
 
-    if (distance < closestDistance) {
-      closestDistance = distance;
-      closestCard = card;
+    if (distance < minDistance) {
+      minDistance = distance;
+      closest = card;
     }
   });
 
-  cards.forEach(c => c.classList.remove('active'));
-  if (closestCard) closestCard.classList.add('active');
+  return closest;
 }
 
-// ตอนเลื่อน (มือถือ / iPad)
+function setActiveCard(card) {
+  cards.forEach(c => c.classList.remove('active'));
+  if (!card) return;
+
+  card.classList.add('active');
+
+  // ดึงให้การ์ดมาอยู่กลางจริง ๆ
+  card.scrollIntoView({
+    behavior: 'smooth',
+    inline: 'center',
+    block: 'nearest'
+  });
+}
+
+// 🔑 รอ scroll หยุดจริง (debounce)
 track.addEventListener('scroll', () => {
-  window.requestAnimationFrame(updateActiveCard);
+  if (scrollTimeout) clearTimeout(scrollTimeout);
+
+  scrollTimeout = setTimeout(() => {
+    const centerCard = getCenterCard();
+    setActiveCard(centerCard);
+  }, 120); // ปรับได้ 100–150
 });
 
-// ตอนคลิก (เผื่อ desktop)
+// คลิก = เลือกทันที
 cards.forEach(card => {
   card.addEventListener('click', () => {
-    card.scrollIntoView({
-      behavior: 'smooth',
-      inline: 'center'
-    });
+    setActiveCard(card);
   });
 });
 
 // init ครั้งแรก
-updateActiveCard();
+setActiveCard(getCenterCard());
