@@ -1,12 +1,9 @@
 const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
 
-let scrollTimeout = null;
-
-/* ===== หา card ที่อยู่กลางจอ ===== */
 function getCenterCard() {
   const trackRect = track.getBoundingClientRect();
-  const centerX = trackRect.left + trackRect.width / 2;
+  const trackCenter = trackRect.left + trackRect.width / 2;
 
   let closestCard = null;
   let closestDistance = Infinity;
@@ -14,7 +11,7 @@ function getCenterCard() {
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
     const cardCenter = rect.left + rect.width / 2;
-    const distance = Math.abs(centerX - cardCenter);
+    const distance = Math.abs(trackCenter - cardCenter);
 
     if (distance < closestDistance) {
       closestDistance = distance;
@@ -25,36 +22,32 @@ function getCenterCard() {
   return closestCard;
 }
 
-/* ===== ตั้ง active ===== */
 function setActiveCard(card) {
   cards.forEach(c => c.classList.remove('active'));
-  card.classList.add('active');
-
-  card.scrollIntoView({
-    behavior: 'smooth',
-    inline: 'center',
-    block: 'nearest'
-  });
+  if (card) card.classList.add('active');
 }
 
-/* ===== swipe / scroll ===== */
+// ✅ ตอนเลื่อน (สำคัญ)
+let scrollTimeout;
 track.addEventListener('scroll', () => {
-  if (scrollTimeout) clearTimeout(scrollTimeout);
-
+  clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
-    const centerCard = getCenterCard();
-    if (centerCard) setActiveCard(centerCard);
-  }, 120); // ปรับได้ 100–150
+    setActiveCard(getCenterCard());
+  }, 80);
 });
 
-/* ===== click ===== */
+// ✅ ตอนโหลดหน้า → โฟกัสใบแรก
+window.addEventListener('load', () => {
+  setActiveCard(getCenterCard());
+});
+
+// ✅ คลิก = เลือกทันที + ไปหน้า product
 cards.forEach(card => {
   card.addEventListener('click', () => {
     setActiveCard(card);
+    const model = card.dataset.model;
+    if (model) {
+      window.location.href = `product.html?model=${model}`;
+    }
   });
 });
-
-/* ===== ไปหน้า product ===== */
-function goProduct(model){
-  window.location.href = "product.html?model=" + model;
-}
