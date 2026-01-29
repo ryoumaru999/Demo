@@ -3,27 +3,29 @@ const cards = document.querySelectorAll('.card');
 
 let scrollTimeout = null;
 
+// หา card ที่อยู่กลางจอ
 function getCenterCard() {
   const trackRect = track.getBoundingClientRect();
   const centerX = trackRect.left + trackRect.width / 2;
 
-  let closestCard = null;
-  let closestDistance = Infinity;
+  let closest = null;
+  let minDistance = Infinity;
 
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
     const cardCenter = rect.left + rect.width / 2;
     const distance = Math.abs(centerX - cardCenter);
 
-    if (distance < closestDistance) {
-      closestDistance = distance;
-      closestCard = card;
+    if (distance < minDistance) {
+      minDistance = distance;
+      closest = card;
     }
   });
 
-  return closestCard;
+  return closest;
 }
 
+// ตั้ง active
 function setActiveCard(card) {
   cards.forEach(c => c.classList.remove('active'));
   card.classList.add('active');
@@ -35,7 +37,7 @@ function setActiveCard(card) {
   });
 }
 
-// scroll แล้วค่อยเลือก
+// scroll แล้วค่อย focus
 track.addEventListener('scroll', () => {
   if (scrollTimeout) clearTimeout(scrollTimeout);
 
@@ -45,9 +47,14 @@ track.addEventListener('scroll', () => {
   }, 120);
 });
 
-// คลิก = เลือกทันที
+// คลิก = focus + เด้งหน้า
 cards.forEach(card => {
   card.addEventListener('click', () => {
     setActiveCard(card);
+
+    const model = card.dataset.model;
+    setTimeout(() => {
+      window.location.href = `product.html?model=${model}`;
+    }, 200);
   });
 });
