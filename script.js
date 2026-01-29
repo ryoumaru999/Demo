@@ -1,19 +1,19 @@
 const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
 
-/* หา card ตรงกลาง */
+/* ===== center detection ===== */
 function updateActiveCard() {
   const center = window.innerWidth / 2;
   let closest = null;
-  let closestDistance = Infinity;
+  let minDist = Infinity;
 
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
     const cardCenter = rect.left + rect.width / 2;
-    const distance = Math.abs(center - cardCenter);
+    const dist = Math.abs(center - cardCenter);
 
-    if (distance < closestDistance) {
-      closestDistance = distance;
+    if (dist < minDist) {
+      minDist = dist;
       closest = card;
     }
   });
@@ -22,14 +22,14 @@ function updateActiveCard() {
   if (closest) closest.classList.add('active');
 }
 
-/* scroll → คำนวณใหม่ */
+/* scroll */
 let scrollTimeout;
 track.addEventListener('scroll', () => {
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(updateActiveCard, 80);
 });
 
-/* click → เข้า product */
+/* click card */
 cards.forEach(card => {
   card.addEventListener('click', () => {
     const model = card.dataset.model;
@@ -39,5 +39,5 @@ cards.forEach(card => {
   });
 });
 
-/* ครั้งแรก */
+/* init */
 updateActiveCard();
