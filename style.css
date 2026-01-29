@@ -37,36 +37,29 @@ html,body{
   align-items:center;
 }
 
-.track{
-  display:flex;
-  gap:24px;
-  padding:0 20px;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
+.track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 40px;
 }
 
-.track::-webkit-scrollbar{
-  display:none;
+.card {
+  scroll-snap-align: center;
+  min-width: 260px;
+  height: 420px;
+  border-radius: 28px;
+  padding: 24px;
+  background: #111;
+  transform: scale(.88);
+  filter: blur(1.5px);
+  transition: .35s ease;
 }
 
-.card{
-  scroll-snap-align:center;
-  min-width:260px;
-  height:420px;
-  border-radius:28px;
-  background:linear-gradient(180deg,#1a1a1a,#000);
-  padding:24px;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-end;
-  transform:scale(.88);
-  filter:blur(1.5px);
-  transition:.4s ease;
-}
-
-.card.active{
-  transform:scale(1);
-  filter:none;
+.card.active {
+  transform: scale(1);
+  filter: none;
 }
 
 .card h2{
