@@ -1,31 +1,41 @@
-const track = document.querySelector('.track');
+const track = document.querySelector('.carousel');
 const cards = document.querySelectorAll('.card');
 
-/* click ต้องทำงาน */
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    alert(card.dataset.model);
-  });
-});
-
-/* focus card กลาง */
-function updateActive() {
+function updateActiveCard() {
   const center = window.innerWidth / 2;
   let closest = null;
   let min = Infinity;
 
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
-    const dist = Math.abs(center - (rect.left + rect.width / 2));
+    const cardCenter = rect.left + rect.width / 2;
+    const dist = Math.abs(center - cardCenter);
+
     if (dist < min) {
       min = dist;
       closest = card;
     }
   });
 
-  cards.forEach(c => c.classList.remove('is-active'));
-  if (closest) closest.classList.add('is-active');
+  cards.forEach(c => c.classList.remove('active'));
+  if (closest) closest.classList.add('active');
 }
 
-track.addEventListener('scroll', updateActive);
-updateActive();
+/* scroll */
+track.addEventListener('scroll', () => {
+  clearTimeout(track._t);
+  track._t = setTimeout(updateActiveCard, 80);
+});
+
+/* click เข้า product */
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    const model = card.dataset.model;
+    if (model) {
+      window.location.href = `product.html?model=${model}`;
+    }
+  });
+});
+
+/* init */
+updateActiveCard();
