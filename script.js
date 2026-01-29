@@ -1,7 +1,7 @@
 const track = document.querySelector('.carousel');
 const cards = document.querySelectorAll('.card');
 
-/* ===== click เข้า product ===== */
+/* ===== CLICK เข้า product ===== */
 cards.forEach(card => {
   card.addEventListener('click', () => {
     const model = card.dataset.model;
@@ -11,20 +11,19 @@ cards.forEach(card => {
   });
 });
 
-/* ===== หา card ตรงกลาง ===== */
+/* ===== ACTIVE CARD ===== */
 function updateActiveCard() {
   const center = window.innerWidth / 2;
-
   let closest = null;
-  let closestDistance = Infinity;
+  let min = Infinity;
 
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
     const cardCenter = rect.left + rect.width / 2;
     const distance = Math.abs(center - cardCenter);
 
-    if (distance < closestDistance) {
-      closestDistance = distance;
+    if (distance < min) {
+      min = distance;
       closest = card;
     }
   });
@@ -33,12 +32,11 @@ function updateActiveCard() {
   if (closest) closest.classList.add('active');
 }
 
-/* ===== scroll + snap ===== */
+/* ===== SCROLL ===== */
 let scrollTimeout;
 track.addEventListener('scroll', () => {
   clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(updateActiveCard, 120);
+  scrollTimeout = setTimeout(updateActiveCard, 80);
 });
 
-/* init */
 updateActiveCard();
