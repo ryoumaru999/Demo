@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>PhoneNow</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="carousel">
+
+  <input type="radio" name="slider" id="p1" checked>
+  <input type="radio" name="slider" id="p2">
+
+  <!-- CARD 1 -->
+  <label for="p1" class="card">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="https://dummyimage.com/400x600/000/fff&text=iPhone+15+Pro+Max">
+        <h2>iPhone 15 Pro Max</h2>
+        <p class="price">เริ่มต้น 1,199 / เดือน</p>
+      </div>
+
+      <div class="card-back">
+        <h2>iPhone 15 Pro Max</h2>
+        <p>256GB / 512GB / 1TB</p>
+        <button onclick="openSheet()">เลือกแผนผ่อน</button>
+      </div>
+    </div>
+  </label>
+
+  <!-- CARD 2 -->
+  <label for="p2" class="card">
+    <div class="card-inner">
+      <div class="card-front">
+        <img src="https://dummyimage.com/400x600/111/fff&text=Samsung+S24+Ultra">
+        <h2>Samsung S24 Ultra</h2>
+        <p class="price">เริ่มต้น 999 / เดือน</p>
+      </div>
+
+      <div class="card-back">
+        <h2>Samsung S24 Ultra</h2>
+        <p>256GB / 512GB</p>
+        <button onclick="openSheet()">เลือกแผนผ่อน</button>
+      </div>
+    </div>
+  </label>
+
+</div>
+
+<!-- BOTTOM SHEET -->
+<div class="sheet" id="sheet">
+  <div class="sheet-content">
+    <h3>เลือกแผนผ่อน</h3>
+    <ul>
+      <li>12 เดือน · 1,299 บาท</li>
+      <li class="active">18 เดือน · 1,099 บาท</li>
+      <li>24 เดือน · 899 บาท</li>
+    </ul>
+    <button onclick="closeSheet()">ปิด</button>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
