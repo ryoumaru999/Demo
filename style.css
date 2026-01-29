@@ -28,6 +28,16 @@ body {
   font-weight: 600;
 }
 
+@media (max-width: 380px) {
+  .main-nav {
+    gap: 12px;
+  }
+
+  .main-nav a {
+    font-size: 13px;
+  }
+}
+
 /* carousel */
 .carousel {
   padding: 20px 0 40px;
