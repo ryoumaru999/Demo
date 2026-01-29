@@ -95,87 +95,59 @@ body {
   text-align: center;
   font-size: 15px;
   line-height: 1.5;
-}
-/* ===== TOP BAR ===== */
+}/* ===== TOP BAR ===== */
 .topbar {
   position: sticky;
   top: 0;
   z-index: 100;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 14px 20px;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,.85);
   backdrop-filter: blur(10px);
 }
 
 /* โลโก้ */
 .logo {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
-  letter-spacing: .3px;
+  letter-spacing: .5px;
 }
 
-/* เมนูกลาง */
-.main-nav a {
-  margin: 0 12px;
-  font-size: 15px;
-  opacity: 0.6;
-  transition: .2s;
-}
-
-.main-nav a.active,
-.main-nav a:hover {
-  opacity: 1;
-}
-
-/* เมนูขวา (ปุ่มขาย) */
-.action-nav a {
-  margin-left: 10px;
-  padding: 6px 14px;
-  border-radius: 16px;
-  font-size: 13px;
-  background: #111;
-  opacity: 0.9;
-  transition: .2s;
-}
-
-.action-nav a:hover {
-  opacity: 1;
-}
-
-/* ไฮไลต์แบบพรีเมียม */
-.action-nav .hot {
-  background: linear-gradient(135deg,#ff8a00,#ff5f00);
-}
-
-.action-nav .promo {
-  background: linear-gradient(135deg,#6a11cb,#2575fc);
-}
-
-.action-nav .agent {
-  border: 1px solid #444;
-  background: transparent;
-}
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-}
-
+/* เมนู */
 .menu {
   display: flex;
-  gap: 18px;
+  align-items: center;
+  gap: 20px;
 }
 
+/* ลิงก์ */
 .menu a {
   color: #aaa;
   text-decoration: none;
   font-size: 14px;
+  font-weight: 500;
+  transition: .2s;
 }
 
+/* hover */
 .menu a:hover {
   color: #fff;
 }
 
+/* active */
+.menu a.active {
+  color: #fff;
+}
+
+/* Agent เน้นนิดหน่อย */
+.menu a.agent {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #5b3df5, #8b5cf6);
+  color: #fff;
+  font-size: 13px;
+}
