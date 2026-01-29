@@ -48,19 +48,15 @@ cards.forEach(card => {
   });
 });
 
-/* scroll = Apple style */
+let scrollTimeout;
+
 track.addEventListener('scroll', () => {
   clearTimeout(scrollTimeout);
 
-  // อัปเดตเร็วขณะเลื่อน (เนียน)
-  requestAnimationFrame(() => {
-    setActiveCard(getCenterCard());
-  });
-
-  // ล็อกตอนหยุดเลื่อน
   scrollTimeout = setTimeout(() => {
-    setActiveCard(getCenterCard());
-  }, 80);
+    const centerCard = getCenterCard();
+    setActiveCard(centerCard);
+  }, 80); // 👈 สำคัญ
 });
 
 /* โหลดครั้งแรก */
