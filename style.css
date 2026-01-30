@@ -283,3 +283,15 @@ nav span.active{
     max-height:300px;
   }
 }
+
+/* ===== Spacer สำหรับ iPad / Safari ===== */
+.spacer{
+  flex: 0 0 calc((100vw - 60%) / 2);
+}
+
+/* Desktop ปรับตาม card width */
+@media (min-width: 1024px){
+  .spacer{
+    flex: 0 0 calc((100vw - 320px) / 2);
+  }
+}
