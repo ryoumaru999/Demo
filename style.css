@@ -46,14 +46,21 @@ html,body{
   display:flex;
   gap:24px;
   padding:0 20px;
+
   overflow-x:auto;
+  overflow-y:hidden;
+
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
+
+  /* ไม่หลอกตาด้วย grab */
+  cursor:default;
 }
 
 .track::-webkit-scrollbar{
   display:none;
 }
+
 
 /* ===== Card ===== */
 .card{
