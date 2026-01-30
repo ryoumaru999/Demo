@@ -47,14 +47,18 @@ nav span.active{
 
 /* ===== Carousel ===== */
 .carousel{
-  padding-top:100px;
+  padding-top:80px;
 }
 
 /* ===== Track ===== */
 .track{
+  min-height:calc(100vh - 120px);
+
   display:flex;
   gap:24px;
   padding:20px;
+
+  align-items:center;
 
   overflow-x:auto;
   overflow-y:hidden;
@@ -74,17 +78,17 @@ nav span.active{
 .card{
   flex:0 0 80%;
   max-width:80%;
-  height:480px;
+  height:520px;
 
   scroll-snap-align:center;
 
   background:linear-gradient(180deg,#1a1a1a,#000);
   border-radius:28px;
-  padding:20px;
+  padding:24px;
 
   display:flex;
   flex-direction:column;
-  align-items:center;
+  justify-content:space-between;
 
   transform:scale(.88);
   filter:blur(2px);
@@ -104,18 +108,28 @@ nav span.active{
 }
 
 /* ===== Image ===== */
+.image-wrap{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
 .card img{
   width:100%;
-  height:auto;
-  max-height:300px;
+  max-height:360px;
   object-fit:contain;
-  margin-bottom:16px;
 }
 
 /* ===== Text ===== */
+.info{
+  text-align:center;
+  margin-top:12px;
+}
+
 .card h2{
   font-size:20px;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 
 .card p{
