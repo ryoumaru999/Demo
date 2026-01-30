@@ -1,94 +1,23 @@
-* {
-  box-sizing: border-box;
-}
+<section class="carousel">
+  <div class="track">
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #000;
-  color: #fff;
-}
+    <div class="card active" data-model="iphone-17-pro-max">
+      <img src="17pm.png">
+      <h2>iPhone 17 Pro Max</h2>
+      <p>เริ่ม 1,499 / ด.</p>
+    </div>
 
-/* ===== TOP BAR ===== */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 20px;
-  background: rgba(0,0,0,.9);
-}
+    <div class="card" data-model="iphone-17-pro">
+      <img src="17p.png">
+      <h2>iPhone 17 Pro</h2>
+      <p>เริ่ม 1,399 / ด.</p>
+    </div>
 
-.logo {
-  font-size: 20px;
-  font-weight: 600;
-}
+    <div class="card" data-model="iphone-16-pro-max">
+      <img src="16pm.png">
+      <h2>iPhone 16 Pro Max</h2>
+      <p>เริ่ม 1,299 / ด.</p>
+    </div>
 
-.main-nav {
-  position: relative;
-  display: flex;
-  gap: 22px;
-}
-
-.main-nav a {
-  color: #777;
-  text-decoration: none;
-  padding: 6px 0;
-}
-
-.main-nav a.active {
-  color: #fff;
-}
-
-.nav-indicator {
-  position: absolute;
-  bottom: -6px;
-  height: 2px;
-  width: 24px;
-  background: #fff;
-  transition: .3s;
-}
-
-/* ===== CAROUSEL ===== */
-.carousel {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-}
-
-.track {
-  display: flex;
-  gap: 20px;
-  padding: 40px 20px;
-}
-
-.card {
-  scroll-snap-align: center;
-  min-width: 280px;
-  height: 420px;
-  background: linear-gradient(180deg,#111,#000);
-  border-radius: 28px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  cursor: pointer;
-  transition: .3s;
-}
-
-.card img {
-  width: 100%;
-  height: 70%;
-  object-fit: contain;
-  margin-bottom: 12px;
-}
-
-.card h2 {
-  margin: 0;
-}
-
-.card p {
-  margin: 6px 0 0;
-  color: #aaa;
-}
+  </div>
+</section>
