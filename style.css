@@ -1,3 +1,6 @@
+/* =========================
+   RESET
+   ========================= */
 *{
   box-sizing:border-box;
   margin:0;
@@ -13,7 +16,9 @@ html, body{
   overflow-x:hidden;
 }
 
-/* ===== Topbar ===== */
+/* =========================
+   TOPBAR
+   ========================= */
 .topbar{
   position:fixed;
   top:0;
@@ -43,17 +48,21 @@ nav span.active{
   opacity:1;
 }
 
-/* ===== Carousel ===== */
+/* =========================
+   CAROUSEL
+   ========================= */
 .carousel{
   padding-top:90px;
-  padding-bottom:32px; /* ⭐ ปิดช่องว่างล่าง */
+  padding-bottom:32px;
 }
 
-/* ===== Track ===== */
+/* =========================
+   TRACK
+   ========================= */
 .track{
   display:flex;
   gap:24px;
-  padding:0 20px; /* ❗ ไม่มี padding-vertical */
+  padding:0 20px;
   align-items:center;
 
   overflow-x:auto;
@@ -67,7 +76,9 @@ nav span.active{
   display:none;
 }
 
-/* ===== Card ===== */
+/* =========================
+   CARD (BASE)
+   ========================= */
 .card{
   flex:0 0 80%;
   max-width:80%;
@@ -102,7 +113,9 @@ nav span.active{
   box-shadow:0 20px 60px rgba(0,0,0,.6);
 }
 
-/* ===== Image ===== */
+/* =========================
+   IMAGE
+   ========================= */
 .image-wrap{
   flex:1;
   display:flex;
@@ -116,7 +129,9 @@ nav span.active{
   object-fit:contain;
 }
 
-/* ===== Info ===== */
+/* =========================
+   INFO
+   ========================= */
 .info{
   text-align:center;
   margin-top:16px;
@@ -128,10 +143,13 @@ nav span.active{
 }
 
 .info p{
+  font-size:16px;
   opacity:.7;
 }
 
-/* ===== Colors ===== */
+/* =========================
+   COLORS
+   ========================= */
 .colors{
   display:flex;
   justify-content:center;
@@ -150,7 +168,9 @@ nav span.active{
 .orange{background:#c86a2b}
 .silver{background:#ccc}
 
-/* ===== CTA ===== */
+/* =========================
+   CTA
+   ========================= */
 .cta{
   margin-top:14px;
   padding:10px 20px;
@@ -165,27 +185,79 @@ nav span.active{
 
   pointer-events:none;
 }
+
+/* =========================================================
+   RESPONSIVE FIX — สำคัญที่สุด
+   ========================================================= */
+
 /* =========================
-   iPad (แนวตั้ง / แนวนอน)
+   MOBILE (iPhone)
    ========================= */
-@media (min-width: 768px) {
+@media (max-width: 480px){
+
+  .carousel{
+    padding-top:80px;
+    padding-bottom:24px;
+  }
+
   .card{
-    flex:0 0 45%;
-    max-width:45%;
-    height:520px;
+    flex:0 0 86%;
+    max-width:86%;
+    height:460px;          /* 🔽 ไม่ดันจอ */
+    padding:22px;
   }
 
   .card img{
-    max-height:360px;
+    max-height:300px;      /* 🔽 รูปไม่ใหญ่เกิน */
+  }
+
+  .info h2{
+    font-size:20px;
+  }
+
+  .info p{
+    font-size:15px;
+  }
+
+  .cta{
+    padding:10px 18px;
+    font-size:14px;
   }
 }
 
 /* =========================
-   Desktop / Laptop
+   TABLET / iPad
    ========================= */
-@media (min-width: 1024px) {
+@media (min-width: 481px) and (max-width: 1023px){
+
+  .carousel{
+    padding-top:100px;
+    padding-bottom:32px;
+  }
+
+  .track{
+    gap:28px;
+  }
+
+  .card{
+    flex:0 0 60%;
+    max-width:60%;
+    height:500px;
+  }
+
+  .card img{
+    max-height:340px;
+  }
+}
+
+/* =========================
+   DESKTOP / PC
+   ========================= */
+@media (min-width: 1024px){
+
   .carousel{
     padding-top:120px;
+    padding-bottom:40px;
   }
 
   .track{
@@ -196,38 +268,10 @@ nav span.active{
   .card{
     flex:0 0 320px;
     max-width:320px;
-    height:500px;
+    height:480px;
   }
 
   .card img{
-    max-height:320px;
+    max-height:300px;
   }
 }
-/* =========================
-   Mobile ปรับให้กระชับขึ้น
-   ========================= */
-@media (max-width: 480px){
-
-  .card{
-    height: 460px;          /* 🔽 ลดจาก 520 */
-    padding: 22px;
-  }
-
-  .card img{
-    max-height: 300px;      /* 🔽 รูปไม่สูงเกิน */
-  }
-
-  .info h2{
-    font-size: 20px;
-  }
-
-  .info p{
-    font-size: 15px;
-  }
-
-  .cta{
-    padding: 10px 18px;
-    font-size: 14px;
-  }
-}
-
