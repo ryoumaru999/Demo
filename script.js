@@ -1,6 +1,35 @@
+const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
 
-/* click เข้า product */
+/* หา card ตรงกลาง */
+function updateActiveCard() {
+  const center = window.innerWidth / 2;
+  let closest = null;
+  let min = Infinity;
+
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.left + rect.width / 2;
+    const distance = Math.abs(center - cardCenter);
+
+    if (distance < min) {
+      min = distance;
+      closest = card;
+    }
+  });
+
+  cards.forEach(c => c.classList.remove('active'));
+  if (closest) closest.classList.add('active');
+}
+
+/* scroll → อัปเดต */
+let scrollTimer;
+track.addEventListener('scroll', () => {
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(updateActiveCard, 80);
+});
+
+/* click → เข้า product */
 cards.forEach(card => {
   card.addEventListener('click', () => {
     const model = card.dataset.model;
@@ -8,22 +37,5 @@ cards.forEach(card => {
   });
 });
 
-/* ขีดเส้นใต้เมนู */
-const nav = document.querySelector('.main-nav');
-const indicator = document.querySelector('.nav-indicator');
-const active = nav.querySelector('.active');
-
-function moveIndicator(el) {
-  indicator.style.width = el.offsetWidth + 'px';
-  indicator.style.left = el.offsetLeft + 'px';
-}
-
-moveIndicator(active);
-
-nav.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    nav.querySelector('.active')?.classList.remove('active');
-    link.classList.add('active');
-    moveIndicator(link);
-  });
-});
+/* เริ่มต้น */
+updateActiveCard();
