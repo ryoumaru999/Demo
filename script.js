@@ -1,45 +1,34 @@
-const track = document.querySelector('.track');
-const cards = document.querySelectorAll('.card');
+const track = document.querySelector('.carousel');
+const cards = [...document.querySelectorAll('.card')];
 
-let scrollTimeout;
+function updateActiveCard() {
+  const center = track.scrollLeft + track.offsetWidth / 2;
 
-function getCenterCard() {
-  const trackRect = track.getBoundingClientRect();
-  const centerX = trackRect.left + trackRect.width / 2;
-
-  let closest = null;
-  let minDistance = Infinity;
+  let closestCard = null;
+  let closestDistance = Infinity;
 
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
-    const cardCenter = rect.left + rect.width / 2;
-    const distance = Math.abs(centerX - cardCenter);
+    const cardCenter =
+      rect.left + rect.width / 2 + track.scrollLeft;
 
-    if (distance < minDistance) {
-      minDistance = distance;
-      closest = card;
+    const distance = Math.abs(center - cardCenter);
+
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestCard = card;
     }
   });
 
-  return closest;
-}
-
-function setActiveCard(card) {
   cards.forEach(c => c.classList.remove('active'));
-  card.classList.add('active');
-
-  // scroll ให้การ์ดเด้งเข้ากลาง (สมูท)
-  card.scrollIntoView({
-    behavior: 'smooth',
-    inline: 'center',
-    block: 'nearest'
-  });
+  if (closestCard) closestCard.classList.add('active');
 }
 
+let scrollTimeout;
 track.addEventListener('scroll', () => {
   clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    const centerCard = getCenterCard();
-    if (centerCard) setActiveCard(centerCard);
-  }, 120); // 👈 delay สำคัญมาก
+  scrollTimeout = setTimeout(updateActiveCard, 80);
 });
+
+// เรียกครั้งแรก
+updateActiveCard();
