@@ -4,7 +4,7 @@ const cards = document.querySelectorAll('.card');
 let isDragging = false;
 let startX = 0;
 
-/* ===== Focus card ===== */
+/* ===== Active card ===== */
 function updateActiveCard(){
   const center = track.scrollLeft + track.offsetWidth / 2;
 
@@ -12,7 +12,7 @@ function updateActiveCard(){
     const cardCenter = card.offsetLeft + card.offsetWidth / 2;
     const distance = Math.abs(center - cardCenter);
 
-    if(distance < card.offsetWidth / 2){
+    if(distance < card.offsetWidth * 0.45){
       card.classList.add('active');
     }else{
       card.classList.remove('active');
@@ -20,29 +20,36 @@ function updateActiveCard(){
   });
 }
 
-track.addEventListener('scroll', updateActiveCard);
+track.addEventListener('scroll', ()=>{
+  requestAnimationFrame(updateActiveCard);
+});
 window.addEventListener('load', updateActiveCard);
 
-/* ===== Drag detect ===== */
+/* ===== Touch detect ===== */
 track.addEventListener('touchstart', e=>{
-  isDragging = false;
   startX = e.touches[0].clientX;
-});
+  isDragging = false;
+},{passive:true});
 
-track.addEventListener('touchmove', e=>{
-  if(Math.abs(e.touches[0].clientX - startX) > 10){
+track.addEventListener('touchend', e=>{
+  const endX = e.changedTouches[0].clientX;
+  if(Math.abs(endX - startX) > 15){
     isDragging = true;
   }
 });
 
-/* ===== Click card ===== */
+/* ===== Click → Expand ===== */
 cards.forEach(card=>{
   card.addEventListener('click', ()=>{
-    if(isDragging) return; // ❌ ถ้าปัด ไม่เปิด
+    if(isDragging) return;
 
     const link = card.dataset.link;
-    if(link){
-      window.location.href = link; // หรือ window.open(link)
-    }
+    if(!link) return;
+
+    card.classList.add('expanding');
+
+    setTimeout(()=>{
+      window.location.href = link;
+    }, 420); // ตรงกับ transition
   });
 });
