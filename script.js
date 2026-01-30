@@ -1,41 +1,32 @@
 const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
 
-/* หา card ตรงกลาง */
 function updateActiveCard() {
-  const center = window.innerWidth / 2;
-  let closest = null;
-  let min = Infinity;
+  const trackRect = track.getBoundingClientRect();
+  const center = trackRect.left + trackRect.width / 2;
+
+  let closestCard = null;
+  let closestDistance = Infinity;
 
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
     const cardCenter = rect.left + rect.width / 2;
     const distance = Math.abs(center - cardCenter);
 
-    if (distance < min) {
-      min = distance;
-      closest = card;
+    if (distance < closestDistance) {
+      closestDistance = distance;
+      closestCard = card;
     }
   });
 
   cards.forEach(c => c.classList.remove('active'));
-  if (closest) closest.classList.add('active');
+  if (closestCard) closestCard.classList.add('active');
 }
 
-/* scroll → อัปเดต */
-let scrollTimer;
+let scrollTimeout;
 track.addEventListener('scroll', () => {
-  clearTimeout(scrollTimer);
-  scrollTimer = setTimeout(updateActiveCard, 80);
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(updateActiveCard, 60);
 });
 
-/* click → เข้า product */
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    const model = card.dataset.model;
-    window.location.href = `product.html?model=${model}`;
-  });
-});
-
-/* เริ่มต้น */
 updateActiveCard();
