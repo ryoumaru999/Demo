@@ -78,6 +78,7 @@ nav span.active{
   flex:0 0 80%;
   max-width:80%;
   height:520px;
+  object-fit:cover;
 
   scroll-snap-align:center;
 
