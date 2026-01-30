@@ -232,6 +232,11 @@ nav span.active{
    TABLET / iPad
    ========================= */
 @media (min-width: 481px) and (max-width: 1023px){
+  .track{
+    padding-left: calc((100vw - 60vw) / 2);
+    padding-right: calc((100vw - 60vw) / 2);
+  }
+}
 
   .carousel{
     padding-top:100px;
