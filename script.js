@@ -1,32 +1,40 @@
-const track = document.querySelector('.carousel');
-const cards = document.querySelectorAll('.card');
+const slider = document.getElementById("slider");
+const cards = document.querySelectorAll(".card");
 
-let timer;
+/* ===== DRAG WITH MOUSE ===== */
+let isDown = false;
+let startX;
+let scrollLeft;
 
-function focusCenterCard() {
-  const center = window.innerWidth / 2;
-  let closest = null;
-  let minDist = Infinity;
-
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    const cardCenter = rect.left + rect.width / 2;
-    const dist = Math.abs(center - cardCenter);
-
-    if (dist < minDist) {
-      minDist = dist;
-      closest = card;
-    }
-  });
-
-  cards.forEach(c => c.classList.remove('active'));
-  if (closest) closest.classList.add('active');
-}
-
-track.addEventListener('scroll', () => {
-  clearTimeout(timer);
-  timer = setTimeout(focusCenterCard, 80);
+slider.addEventListener("mousedown", e => {
+  isDown = true;
+  slider.classList.add("dragging");
+  startX = e.pageX;
+  scrollLeft = slider.scrollLeft;
 });
 
-// initial
-focusCenterCard();
+slider.addEventListener("mouseleave", () => isDown = false);
+slider.addEventListener("mouseup", () => isDown = false);
+
+slider.addEventListener("mousemove", e => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX;
+  const walk = (x - startX) * 1.5;
+  slider.scrollLeft = scrollLeft - walk;
+});
+
+/* ===== AUTO FOCUS ===== */
+slider.addEventListener("scroll", () => {
+  let center = slider.scrollLeft + slider.offsetWidth / 2;
+
+  cards.forEach(card => {
+    const cardCenter =
+      card.offsetLeft + card.offsetWidth / 2;
+
+    card.classList.toggle(
+      "active",
+      Math.abs(center - cardCenter) < card.offsetWidth / 2
+    );
+  });
+});
