@@ -1,61 +1,95 @@
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
 }
 
-html,body{
-  width:100%;
-  height:100%;
-  background:#000;
-  color:#fff;
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro", sans-serif;
+  overflow-x: hidden;
 }
 
-.topbar{
-  position:fixed;
-  top:0;
-  width:100%;
-  padding:16px 20px;
-  display:flex;
-  justify-content:space-between;
-  z-index:10;
-}
-
-.topbar nav span{
-  margin-left:16px;
-  opacity:.5;
-}
-
-.topbar nav .active{
-  opacity:1;
-}
-
+/* ===== CAROUSEL ===== */
 .carousel {
+  padding: 40px 0 80px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 }
 
-.card {
-  flex: 0 0 80%;
-  scroll-snap-align: center;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  transform: scale(0.9);
-  opacity: 0.4;
+.carousel::-webkit-scrollbar {
+  display: none;
 }
 
+.track {
+  display: flex;
+  gap: 24px;
+  padding: 0 20vw;
+  align-items: center;
+}
+
+/* ===== CARD ===== */
+.card {
+  scroll-snap-align: center;
+  min-width: 260px;
+  height: 420px;
+  border-radius: 28px;
+  background: radial-gradient(
+    circle at top,
+    #1a1a1a,
+    #000 70%
+  );
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  transition:
+    transform 0.45s cubic-bezier(.22,.61,.36,1),
+    opacity 0.45s ease,
+    filter 0.45s ease;
+
+  transform: scale(0.82);
+  opacity: 0.35;
+  filter: blur(1.5px);
+}
+
+/* ===== IMAGE ===== */
+.card img {
+  width: 100%;
+  height: 65%;
+  object-fit: contain;
+  margin-bottom: 16px;
+
+  transition: transform 0.45s cubic-bezier(.22,.61,.36,1);
+  pointer-events: none; /* สำคัญ */
+}
+
+/* ===== TEXT ===== */
+.card h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.card p {
+  margin: 6px 0 0;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* ===== ACTIVE CARD ===== */
 .card.active {
   transform: scale(1);
   opacity: 1;
+  filter: blur(0);
 }
 
-.card h2{
-  font-size:20px;
-}
-
-.card p{
-  margin-top:8px;
-  opacity:.7;
+.card.active img {
+  transform: scale(1.08);
 }
