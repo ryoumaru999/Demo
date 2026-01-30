@@ -99,9 +99,6 @@ nav span.active{
 
   cursor:pointer;
 
-  transform:scale(.94);
-  filter:blur(1px);
-  opacity:.6;
 
   transition:
     transform .4s ease,
@@ -305,5 +302,23 @@ nav span.active{
 
   .card{
     scroll-snap-align: unset;
+  }
+}
+/* ===================================
+   FIX iPad Safari – ปัดไม่สุด
+   สาเหตุจริง: transform
+   =================================== */
+@media (min-width: 481px) and (max-width: 1023px){
+
+  /* ปิด snap */
+  .track{
+    scroll-snap-type: none;
+  }
+
+  /* ปิด effect ทั้งหมดที่ Safari ไม่ไหว */
+  .card{
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
   }
 }
