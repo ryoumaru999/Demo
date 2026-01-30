@@ -1,95 +1,69 @@
-/* ===== RESET ===== */
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #000;
-  color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro", sans-serif;
-  overflow-x: hidden;
-}
-
-/* ===== CAROUSEL ===== */
-.carousel {
-  padding: 40px 0 80px;
+/* ===== SLIDER WRAPPER ===== */
+.slider {
+  display: flex;
+  gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+  padding: 40px 20px;
 }
 
-.carousel::-webkit-scrollbar {
+.slider::-webkit-scrollbar {
   display: none;
-}
-
-.track {
-  display: flex;
-  gap: 24px;
-  padding: 0 20vw;
-  align-items: center;
 }
 
 /* ===== CARD ===== */
 .card {
-  scroll-snap-align: center;
-  min-width: 260px;
-  height: 420px;
+  flex: 0 0 260px;            /* ล็อกขนาดการ์ด */
+  height: 380px;
+  background: radial-gradient(circle at top, #222, #000);
   border-radius: 28px;
-  background: radial-gradient(
-    circle at top,
-    #1a1a1a,
-    #000 70%
-  );
-  padding: 24px;
+  scroll-snap-align: center;
 
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: center;
 
-  transition:
-    transform 0.45s cubic-bezier(.22,.61,.36,1),
-    opacity 0.45s ease,
-    filter 0.45s ease;
+  transition: 
+    transform 0.45s cubic-bezier(.4,0,.2,1),
+    opacity 0.3s ease,
+    filter 0.3s ease;
 
-  transform: scale(0.82);
-  opacity: 0.35;
-  filter: blur(1.5px);
-}
-
-/* ===== IMAGE ===== */
-.card img {
-  width: 100%;
-  height: 65%;
-  object-fit: contain;
-  margin-bottom: 16px;
-
-  transition: transform 0.45s cubic-bezier(.22,.61,.36,1);
-  pointer-events: none; /* สำคัญ */
-}
-
-/* ===== TEXT ===== */
-.card h2 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.card p {
-  margin: 6px 0 0;
-  font-size: 14px;
-  opacity: 0.7;
+  transform: scale(0.88);
+  opacity: 0.45;
+  filter: blur(1px);
 }
 
 /* ===== ACTIVE CARD ===== */
 .card.active {
   transform: scale(1);
   opacity: 1;
-  filter: blur(0);
+  filter: none;
+}
+
+/* ===== IMAGE ===== */
+.card img {
+  width: 180px;          /* 🔒 ล็อกขนาดรูป */
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  transition: transform 0.45s ease;
 }
 
 .card.active img {
-  transform: scale(1.08);
+  transform: scale(1.05);
+}
+
+/* ===== TEXT ===== */
+.card h2 {
+  margin-top: 16px;
+  font-size: 20px;
+  color: #fff;
+}
+
+.card p {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #aaa;
 }
