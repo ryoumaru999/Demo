@@ -1,69 +1,140 @@
-/* ===== SLIDER WRAPPER ===== */
-.slider {
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+    "Segoe UI", sans-serif;
+  overflow-x: hidden;
+}
+
+/* ===== HEADER ===== */
+header {
   display: flex;
-  gap: 24px;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 18px;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.main-nav {
+  display: flex;
+  gap: 18px;
+}
+
+.main-nav a {
+  color: #777;
+  text-decoration: none;
+  font-size: 15px;
+  position: relative;
+  padding-bottom: 6px;
+}
+
+.main-nav a.active {
+  color: #fff;
+}
+
+.main-nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+/* ===== CAROUSEL ===== */
+.carousel {
+  margin-top: 30px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: 40px 20px;
 }
 
-.slider::-webkit-scrollbar {
-  display: none;
+.track {
+  display: flex;
+  gap: 24px;
+  padding: 0 24px 60px;
 }
 
 /* ===== CARD ===== */
 .card {
-  flex: 0 0 260px;            /* ล็อกขนาดการ์ด */
-  height: 380px;
-  background: radial-gradient(circle at top, #222, #000);
+  flex: 0 0 260px;
+  height: 420px;
+  background: radial-gradient(
+    ellipse at top,
+    rgba(255, 255, 255, 0.08),
+    rgba(0, 0, 0, 0.9)
+  );
   border-radius: 28px;
+  padding: 22px;
+  text-align: center;
   scroll-snap-align: center;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  transition: 
-    transform 0.45s cubic-bezier(.4,0,.2,1),
-    opacity 0.3s ease,
-    filter 0.3s ease;
-
+  /* animation base */
   transform: scale(0.88);
   opacity: 0.45;
-  filter: blur(1px);
+  filter: blur(1.5px);
+  transition: 
+    transform 0.45s cubic-bezier(.2,.8,.2,1),
+    opacity 0.45s ease,
+    filter 0.45s ease;
+
+  pointer-events: none;
 }
 
 /* ===== ACTIVE CARD ===== */
 .card.active {
   transform: scale(1);
   opacity: 1;
-  filter: none;
+  filter: blur(0);
+  pointer-events: auto;
 }
 
 /* ===== IMAGE ===== */
 .card img {
-  width: 180px;          /* 🔒 ล็อกขนาดรูป */
-  height: auto;
+  width: 100%;
+  height: 240px;
   object-fit: contain;
-  pointer-events: none;
-  transition: transform 0.45s ease;
-}
+  display: block;
+  margin-bottom: 16px;
 
-.card.active img {
-  transform: scale(1.05);
+  /* กันรูปพัง */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 /* ===== TEXT ===== */
 .card h2 {
-  margin-top: 16px;
   font-size: 20px;
-  color: #fff;
+  margin: 8px 0 4px;
 }
 
 .card p {
-  margin-top: 4px;
   font-size: 14px;
   color: #aaa;
+  margin: 0;
+}
+
+/* ===== MOBILE FIX ===== */
+@media (max-width: 480px) {
+  .card {
+    flex: 0 0 240px;
+    height: 400px;
+  }
+
+  .card img {
+    height: 220px;
+  }
 }
