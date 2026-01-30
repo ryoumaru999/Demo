@@ -1,7 +1,9 @@
 const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
 
-/* ===== Focus card ===== */
+/* ===============================
+   Focus active card
+================================ */
 function setActiveCard(){
   const center = track.scrollLeft + track.offsetWidth / 2;
 
@@ -20,7 +22,9 @@ track.addEventListener('scroll', () => {
   requestAnimationFrame(setActiveCard);
 });
 
-/* ===== Click to center ===== */
+/* ===============================
+   Click to center
+================================ */
 cards.forEach(card => {
   card.addEventListener('click', () => {
     track.scrollTo({
@@ -28,39 +32,43 @@ cards.forEach(card => {
         card.offsetLeft -
         track.offsetWidth / 2 +
         card.offsetWidth / 2,
-      behavior:'smooth'
+      behavior: 'smooth'
     });
   });
 });
 
-/* ===== Mouse drag support ===== */
-let isDown = false;
-let startX;
-let scrollLeft;
+/* ===============================
+   Pointer Drag (Mouse + Touch)
+================================ */
+let isDragging = false;
+let startX = 0;
+let startScroll = 0;
 
-track.addEventListener('mousedown', (e) => {
-  isDown = true;
+track.addEventListener('pointerdown', (e) => {
+  isDragging = true;
+  track.setPointerCapture(e.pointerId);
+  startX = e.clientX;
+  startScroll = track.scrollLeft;
   track.classList.add('dragging');
-  startX = e.pageX - track.offsetLeft;
-  scrollLeft = track.scrollLeft;
 });
 
-track.addEventListener('mouseleave', () => {
-  isDown = false;
+track.addEventListener('pointermove', (e) => {
+  if (!isDragging) return;
+  const dx = e.clientX - startX;
+  track.scrollLeft = startScroll - dx;
 });
 
-track.addEventListener('mouseup', () => {
-  isDown = false;
+track.addEventListener('pointerup', () => {
+  isDragging = false;
+  track.classList.remove('dragging');
 });
 
-track.addEventListener('mousemove', (e) => {
-  if(!isDown) return;
-  e.preventDefault();
-
-  const x = e.pageX - track.offsetLeft;
-  const walk = (x - startX) * 1.5; // ความเร็วลาก
-  track.scrollLeft = scrollLeft - walk;
+track.addEventListener('pointercancel', () => {
+  isDragging = false;
+  track.classList.remove('dragging');
 });
 
-/* ===== initial ===== */
+/* ===============================
+   Init
+================================ */
 setActiveCard();
