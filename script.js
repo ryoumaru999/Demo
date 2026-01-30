@@ -1,31 +1,32 @@
 const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
+const prev = document.querySelector('.prev');
+const next = document.querySelector('.next');
 
-/* focus card กลาง */
-function setActiveCard(){
+/* โฟกัสการ์ดกลาง */
+function setActive(){
   const center = track.scrollLeft + track.offsetWidth / 2;
-
-  cards.forEach(card => {
-    const cardCenter =
-      card.offsetLeft + card.offsetWidth / 2;
-
+  cards.forEach(card=>{
+    const c = card.offsetLeft + card.offsetWidth / 2;
     card.classList.toggle(
       'active',
-      Math.abs(center - cardCenter) < card.offsetWidth / 2
+      Math.abs(center - c) < card.offsetWidth / 2
     );
   });
 }
 
-/* scroll = update focus */
-track.addEventListener('scroll', () => {
-  requestAnimationFrame(setActiveCard);
-});
+track.addEventListener('scroll',()=>requestAnimationFrame(setActive));
 
-/* 🖱️ DESKTOP FIX: ล้อเมาส์ = เลื่อนแนวนอน */
-track.addEventListener('wheel', (e) => {
-  e.preventDefault();
-  track.scrollLeft += e.deltaY;
-}, { passive:false });
+/* ปุ่มเลื่อน */
+function slide(dir){
+  const cardWidth = cards[0].offsetWidth + 24;
+  track.scrollBy({
+    left: dir * cardWidth,
+    behavior:'smooth'
+  });
+}
 
-/* init */
-setActiveCard();
+prev.onclick = ()=>slide(-1);
+next.onclick = ()=>slide(1);
+
+setActive();
