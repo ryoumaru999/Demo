@@ -106,6 +106,19 @@ html,body{
   font-size:14px;
   opacity:.7;
 }
+.track{
+  cursor:grab;
+  touch-action:pan-x;
+}
+
+.track.dragging{
+  cursor:grabbing;
+}
+
+.track.dragging *{
+  user-select:none;
+}
+
 
 /* ===== Responsive ===== */
 @media (max-width:768px){
