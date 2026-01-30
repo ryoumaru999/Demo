@@ -203,3 +203,31 @@ nav span.active{
     max-height:320px;
   }
 }
+/* =========================
+   Mobile ปรับให้กระชับขึ้น
+   ========================= */
+@media (max-width: 480px){
+
+  .card{
+    height: 460px;          /* 🔽 ลดจาก 520 */
+    padding: 22px;
+  }
+
+  .card img{
+    max-height: 300px;      /* 🔽 รูปไม่สูงเกิน */
+  }
+
+  .info h2{
+    font-size: 20px;
+  }
+
+  .info p{
+    font-size: 15px;
+  }
+
+  .cta{
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+}
+
