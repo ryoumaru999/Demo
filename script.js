@@ -1,19 +1,18 @@
-const cards = document.querySelectorAll('.card');
 const track = document.querySelector('.carousel');
+const cards = document.querySelectorAll('.card');
 
-function updateActive() {
+function updateActiveCard() {
   const center = window.innerWidth / 2;
-
   let closest = null;
-  let closestDist = Infinity;
+  let min = Infinity;
 
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
     const cardCenter = rect.left + rect.width / 2;
     const dist = Math.abs(center - cardCenter);
 
-    if (dist < closestDist) {
-      closestDist = dist;
+    if (dist < min) {
+      min = dist;
       closest = card;
     }
   });
@@ -22,18 +21,17 @@ function updateActive() {
   if (closest) closest.classList.add('active');
 }
 
+let scrollTimeout;
 track.addEventListener('scroll', () => {
-  window.requestAnimationFrame(updateActive);
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(updateActiveCard, 80);
 });
 
-updateActive();
+updateActiveCard();
 
-/* กดการ์ดได้จริง */
+/* click */
 cards.forEach(card => {
   card.addEventListener('click', () => {
-    card.scrollIntoView({
-      behavior: 'smooth',
-      inline: 'center'
-    });
+    alert(card.dataset.model);
   });
 });
