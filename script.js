@@ -18,6 +18,14 @@ function setActiveCard() {
 track.addEventListener('scroll', () => {
   window.requestAnimationFrame(setActiveCard);
 });
+ 
+@media (max-width: 768px){
+  .card{
+    min-width:220px;
+    height:380px;
+  }
+}
+
 
 // initial
 setActiveCard();
