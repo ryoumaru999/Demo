@@ -1,12 +1,34 @@
+const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
-const navLinks = document.querySelectorAll('.nav-link');
 
-/* ===== card click ===== */
+function updateActiveCard() {
+  const center = window.innerWidth / 2;
+  let closest = null;
+  let min = Infinity;
+
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.left + rect.width / 2;
+    const distance = Math.abs(center - cardCenter);
+
+    if (distance < min) {
+      min = distance;
+      closest = card;
+    }
+  });
+
+  cards.forEach(c => c.classList.remove('active'));
+  if (closest) closest.classList.add('active');
+}
+
+let scrollTimeout;
+track.addEventListener('scroll', () => {
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(updateActiveCard, 80);
+});
+
 cards.forEach(card => {
   card.addEventListener('click', () => {
-    cards.forEach(c => c.classList.remove('active'));
-    card.classList.add('active');
-
     const model = card.dataset.model;
     if (model) {
       window.location.href = `product.html?model=${model}`;
@@ -14,10 +36,4 @@ cards.forEach(card => {
   });
 });
 
-/* ===== nav underline ===== */
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    navLinks.forEach(l => l.classList.remove('active'));
-    link.classList.add('active');
-  });
-});
+updateActiveCard();
