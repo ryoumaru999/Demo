@@ -42,10 +42,6 @@ cards.forEach(card=>{
     const link = card.dataset.link;
     if(!link) return;
 
-    card.classList.add('expanding');
-
-    setTimeout(()=>{
-      window.location.href = link;
-    }, 420);
+   
   });
 });
