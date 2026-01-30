@@ -53,7 +53,6 @@ nav span.active{
 /* ===== Track ===== */
 .track{
   min-height:calc(100vh - 120px);
-
   display:flex;
   gap:24px;
   padding:20px;
@@ -94,6 +93,8 @@ nav span.active{
   filter:blur(2px);
   opacity:.6;
 
+  cursor:pointer;
+
   transition:
     transform .45s ease,
     filter .45s ease,
@@ -105,6 +106,10 @@ nav span.active{
   filter:none;
   opacity:1;
   box-shadow:0 20px 60px rgba(0,0,0,.7);
+}
+
+.card:active{
+  transform:scale(.97);
 }
 
 /* ===== Image ===== */
