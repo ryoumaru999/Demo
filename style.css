@@ -26,25 +26,43 @@ html, body{
   justify-content:space-between;
   align-items:center;
   z-index:10;
+
   background:rgba(0,0,0,.6);
   backdrop-filter:blur(10px);
 }
 
-/* ===== Carousel Track ===== */
+.logo{
+  font-size:20px;
+  font-weight:600;
+}
+
+nav span{
+  margin-left:16px;
+  opacity:.6;
+}
+
+nav span.active{
+  opacity:1;
+}
+
+/* ===== Carousel ===== */
+.carousel{
+  padding-top:100px;
+}
+
+/* ===== Track ===== */
 .track{
   display:flex;
   gap:24px;
-  padding:120px 20px 40px;
+  padding:20px;
 
   overflow-x:auto;
   overflow-y:hidden;
 
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
-
   -webkit-overflow-scrolling:touch;
 
-  cursor:grab;
   touch-action:pan-x;
 }
 
@@ -52,21 +70,21 @@ html, body{
   display:none;
 }
 
-.track.dragging{
-  cursor:grabbing;
-}
-
 /* ===== Card ===== */
 .card{
   flex:0 0 80%;
   max-width:80%;
-  height:440px;
+  height:480px;
 
   scroll-snap-align:center;
 
-  border-radius:28px;
   background:linear-gradient(180deg,#1a1a1a,#000);
+  border-radius:28px;
   padding:20px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 
   transform:scale(.88);
   filter:blur(2px);
@@ -89,7 +107,17 @@ html, body{
 .card img{
   width:100%;
   height:auto;
-  display:block;
-  margin-top:20px;
-  border-radius:20px;
+  max-height:300px;
+  object-fit:contain;
+  margin-bottom:16px;
+}
+
+/* ===== Text ===== */
+.card h2{
+  font-size:20px;
+  margin-bottom:8px;
+}
+
+.card p{
+  opacity:.7;
 }
