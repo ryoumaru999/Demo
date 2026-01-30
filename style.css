@@ -1,23 +1,54 @@
-<section class="carousel">
-  <div class="track">
+.carousel {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
 
-    <div class="card active" data-model="iphone-17-pro-max">
-      <img src="17pm.png">
-      <h2>iPhone 17 Pro Max</h2>
-      <p>เริ่ม 1,499 / ด.</p>
-    </div>
+.track {
+  display: flex;
+  gap: 24px;
+  padding: 40px;
+}
 
-    <div class="card" data-model="iphone-17-pro">
-      <img src="17p.png">
-      <h2>iPhone 17 Pro</h2>
-      <p>เริ่ม 1,399 / ด.</p>
-    </div>
+.card {
+  min-width: 280px;
+  height: 420px;
+  border-radius: 28px;
+  background: radial-gradient(circle at top, #222, #000);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-    <div class="card" data-model="iphone-16-pro-max">
-      <img src="16pm.png">
-      <h2>iPhone 16 Pro Max</h2>
-      <p>เริ่ม 1,299 / ด.</p>
-    </div>
+  scroll-snap-align: center;
 
-  </div>
-</section>
+  /* สภาพปกติ */
+  transform: scale(0.85);
+  opacity: 0.4;
+
+  transition: 
+    transform 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.card img {
+  width: 200px;
+  height: auto;
+  margin-bottom: 16px;
+}
+
+.card h2 {
+  color: #fff;
+  margin: 8px 0 4px;
+}
+
+.card p {
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* ⭐ ตัวที่ถูกเลือก */
+.card.active {
+  transform: scale(1);
+  opacity: 1;
+}
