@@ -1,37 +1,37 @@
 const slider = document.getElementById("slider");
 const cards = document.querySelectorAll(".card");
 
-/* ===== DRAG WITH MOUSE ===== */
+/* ===== mouse drag ===== */
 let isDown = false;
-let startX;
-let scrollLeft;
+let startX, scrollLeft;
 
 slider.addEventListener("mousedown", e => {
   isDown = true;
-  slider.classList.add("dragging");
   startX = e.pageX;
   scrollLeft = slider.scrollLeft;
 });
 
-slider.addEventListener("mouseleave", () => isDown = false);
-slider.addEventListener("mouseup", () => isDown = false);
+window.addEventListener("mouseup", () => isDown = false);
 
 slider.addEventListener("mousemove", e => {
   if (!isDown) return;
   e.preventDefault();
   const x = e.pageX;
-  const walk = (x - startX) * 1.5;
-  slider.scrollLeft = scrollLeft - walk;
+  slider.scrollLeft = scrollLeft - (x - startX);
 });
 
-/* ===== AUTO FOCUS ===== */
+/* ===== wheel support (สำคัญมาก) ===== */
+slider.addEventListener("wheel", e => {
+  e.preventDefault();
+  slider.scrollLeft += e.deltaY;
+}, { passive: false });
+
+/* ===== auto focus ===== */
 slider.addEventListener("scroll", () => {
-  let center = slider.scrollLeft + slider.offsetWidth / 2;
+  const center = slider.scrollLeft + slider.offsetWidth / 2;
 
   cards.forEach(card => {
-    const cardCenter =
-      card.offsetLeft + card.offsetWidth / 2;
-
+    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
     card.classList.toggle(
       "active",
       Math.abs(center - cardCenter) < card.offsetWidth / 2
