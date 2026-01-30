@@ -295,3 +295,15 @@ nav span.active{
     flex: 0 0 calc((100vw - 320px) / 2);
   }
 }
+/* =========================
+   FIX iPad Safari: ปิด snap
+   ========================= */
+@media (min-width: 481px) and (max-width: 1023px){
+  .track{
+    scroll-snap-type: none;
+  }
+
+  .card{
+    scroll-snap-align: unset;
+  }
+}
