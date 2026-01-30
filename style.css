@@ -165,3 +165,41 @@ nav span.active{
 
   pointer-events:none;
 }
+/* =========================
+   iPad (แนวตั้ง / แนวนอน)
+   ========================= */
+@media (min-width: 768px) {
+  .card{
+    flex:0 0 45%;
+    max-width:45%;
+    height:520px;
+  }
+
+  .card img{
+    max-height:360px;
+  }
+}
+
+/* =========================
+   Desktop / Laptop
+   ========================= */
+@media (min-width: 1024px) {
+  .carousel{
+    padding-top:120px;
+  }
+
+  .track{
+    justify-content:center;
+    gap:32px;
+  }
+
+  .card{
+    flex:0 0 320px;
+    max-width:320px;
+    height:500px;
+  }
+
+  .card img{
+    max-height:320px;
+  }
+}
