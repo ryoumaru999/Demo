@@ -114,10 +114,32 @@ html,body{
   opacity:.7;
 }
 
-/* ===== Responsive ===== */
-@media (max-width:768px){
-  .card{
-    min-width:220px;
-    height:380px;
-  }
+.carousel{
+  position:relative;
+  height:100vh;
+  display:flex;
+  align-items:center;
 }
+
+.nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  border:none;
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  font-size:32px;
+  cursor:pointer;
+  z-index:20;
+}
+
+.nav:hover{
+  background:rgba(255,255,255,.25);
+}
+
+.nav.prev{ left:16px; }
+.nav.next{ right:16px; }
+
