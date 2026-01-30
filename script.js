@@ -1,29 +1,57 @@
+const track = document.querySelector('.track');
+const cards = document.querySelectorAll('.card');
+const navLinks = document.querySelectorAll('.nav-link');
+const indicator = document.querySelector('.nav-indicator');
+
 /* ===== CARD CLICK ===== */
-document.querySelectorAll('.card').forEach(card => {
+cards.forEach(card => {
   card.addEventListener('click', () => {
     const model = card.dataset.model;
     window.location.href = `product.html?model=${model}`;
   });
 });
 
-/* ===== NAV UNDERLINE ===== */
-const links = document.querySelectorAll('.nav-link');
-const indicator = document.querySelector('.nav-indicator');
+/* ===== AUTO ACTIVE CARD ===== */
+function updateActiveCard() {
+  const center = window.innerWidth / 2;
+  let closest = null;
+  let min = Infinity;
 
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.left + rect.width / 2;
+    const dist = Math.abs(center - cardCenter);
+
+    if (dist < min) {
+      min = dist;
+      closest = card;
+    }
+  });
+
+  cards.forEach(c => c.classList.remove('active'));
+  if (closest) closest.classList.add('active');
+}
+
+track.addEventListener('scroll', () => {
+  clearTimeout(track._t);
+  track._t = setTimeout(updateActiveCard, 80);
+});
+
+updateActiveCard();
+
+/* ===== NAV UNDERLINE ===== */
 function moveIndicator(el) {
   indicator.style.width = el.offsetWidth + 'px';
   indicator.style.left = el.offsetLeft + 'px';
 }
 
-links.forEach(link => {
-  link.addEventListener('click', () => {
-    links.forEach(l => l.classList.remove('active'));
+navLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    navLinks.forEach(l => l.classList.remove('active'));
     link.classList.add('active');
     moveIndicator(link);
   });
 });
 
-window.addEventListener('load', () => {
-  const active = document.querySelector('.nav-link.active');
-  moveIndicator(active);
-});
+moveIndicator(document.querySelector('.nav-link.active'));
