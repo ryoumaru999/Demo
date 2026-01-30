@@ -62,7 +62,10 @@ nav span.active{
 .track{
   display:flex;
   gap:24px;
-  padding:0 20px;
+
+  padding-left: calc((100vw - 320px) / 2);
+  padding-right: calc((100vw - 320px) / 2);
+
   align-items:center;
 
   overflow-x:auto;
