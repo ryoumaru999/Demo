@@ -1,142 +1,92 @@
-/* =========================
-   CAROUSEL
-========================= */
+/* ===== Carousel Layout ===== */
 .carousel {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding-bottom: 20px;
 }
 
 .track {
   display: flex;
-  gap: 28px;
-  padding: 48px 24px;
+  gap: 24px;
+  padding: 60px 24px;
 }
 
+/* ซ่อน scrollbar */
+.carousel::-webkit-scrollbar {
+  display: none;
+}
 
-/* =========================
-   CARD BASE
-========================= */
+/* ===== Card Base ===== */
 .card {
   scroll-snap-align: center;
   min-width: 260px;
   height: 420px;
-  border-radius: 30px;
-
-  background:
-    radial-gradient(
-      120% 120% at top,
-      rgba(255,255,255,0.08),
-      rgba(0,0,0,0.9)
-    );
-
+  border-radius: 28px;
+  background: linear-gradient(160deg, #0f0f0f, #1a1a1a);
   padding: 24px;
-  position: relative;
-  overflow: hidden;
 
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: flex-end;
 
-  transform: scale(0.82) translateY(12px);
-  opacity: 0.35;
+  color: #fff;
+  text-align: center;
 
+  /* เอฟเฟกต์พื้นฐาน */
+  transform: scale(0.88);
+  opacity: 0.4;
+  filter: blur(1.5px);
   transition:
-    transform .5s cubic-bezier(.2,.8,.2,1),
-    opacity .4s ease,
-    box-shadow .5s ease,
-    background .6s ease;
+    transform 0.45s cubic-bezier(.4,0,.2,1),
+    opacity 0.45s ease,
+    filter 0.45s ease,
+    box-shadow 0.45s ease;
 }
 
-
-/* =========================
-   GLASS EDGE / LIGHT BORDER
-========================= */
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,0.25),
-      transparent 40%
-    );
-  opacity: .25;
-  pointer-events: none;
-}
-
-
-/* =========================
-   IMAGE
-========================= */
+/* ===== Image ===== */
 .card img {
   width: 100%;
-  height: 68%;
+  height: 72%;
   object-fit: contain;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 
-  transform: translateY(10px) scale(0.95);
-  filter:
-    drop-shadow(0 30px 60px rgba(0,0,0,.65));
-
-  transition:
-    transform .6s cubic-bezier(.2,.8,.2,1),
-    filter .6s ease;
+  pointer-events: none;
+  filter: drop-shadow(0 30px 60px rgba(0,0,0,.6));
+  transition: transform .45s ease;
 }
 
-
-/* =========================
-   TEXT
-========================= */
+/* ===== Text ===== */
 .card h2 {
-  color: #fff;
   font-size: 20px;
   margin: 0;
-  letter-spacing: .2px;
 }
 
 .card p {
-  color: rgba(255,255,255,.6);
+  margin-top: 6px;
+  color: #aaa;
   font-size: 14px;
-  margin: 6px 0 0;
 }
 
-
-/* =========================
-   ACTIVE CARD
-========================= */
+/* ===== Active Card ===== */
 .card.active {
-  transform: scale(1) translateY(0);
+  transform: scale(1);
   opacity: 1;
-
+  filter: blur(0);
   box-shadow:
-    0 40px 90px rgba(0,0,0,.9),
-    inset 0 0 0 1px rgba(255,255,255,.12);
-
-  background:
-    radial-gradient(
-      120% 120% at top,
-      rgba(255,255,255,0.18),
-      rgba(0,0,0,1)
-    );
+    0 40px 120px rgba(0,0,0,.8),
+    inset 0 0 0 1px rgba(255,255,255,.06);
 }
 
 .card.active img {
-  transform: translateY(0) scale(1.05);
-  filter:
-    drop-shadow(0 45px 80px rgba(0,0,0,.9));
+  transform: scale(1.06);
 }
 
-
-/* =========================
-   SUBTLE HOVER (DESKTOP)
-========================= */
+/* ===== Hover (desktop) ===== */
 @media (hover: hover) {
   .card:hover {
-    transform: scale(.9) translateY(-4px);
-    opacity: .6;
+    transform: scale(0.95);
+    opacity: 0.8;
+    filter: blur(0.3px);
   }
 }
