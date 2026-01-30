@@ -1,48 +1,103 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ===== TOP BAR ===== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: rgba(0,0,0,.85);
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.main-nav {
+  position: relative;
+  display: flex;
+  gap: 22px;
+}
+
+.main-nav a {
+  color: #777;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 6px 0;
+}
+
+.main-nav a.active {
+  color: #fff;
+}
+
+.nav-indicator {
+  position: absolute;
+  bottom: -6px;
+  height: 2px;
+  width: 0;
+  background: #fff;
+  transition: .3s;
+}
+
+/* ===== CAROUSEL ===== */
 .carousel {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
+  padding: 40px 0;
+  overflow: hidden;
 }
 
 .track {
   display: flex;
   gap: 24px;
-  padding: 40px;
+  padding: 0 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
 }
 
 .card {
   scroll-snap-align: center;
   min-width: 260px;
   height: 420px;
-  border-radius: 28px;
   background: linear-gradient(180deg, #111, #000);
+  border-radius: 28px;
   padding: 24px;
-
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-
-  transition: .35s ease;
-  transform: scale(.9);
-  opacity: .4;
+  cursor: pointer;
+  transition: transform .3s, opacity .3s;
 }
 
 .card img {
   width: 100%;
-  height: 70%;
+  height: 65%;
   object-fit: contain;
   margin-bottom: 16px;
   pointer-events: none; /* ⭐ สำคัญ */
 }
 
-.card.active {
-  transform: scale(1);
-  opacity: 1;
-}
-
 .card h2 {
-  margin: 0;
+  font-size: 20px;
 }
 
 .card p {
-  opacity: .7;
+  color: #aaa;
+  margin-top: 6px;
 }
