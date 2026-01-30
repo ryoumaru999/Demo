@@ -1,74 +1,51 @@
 const track = document.querySelector('.track');
 const cards = document.querySelectorAll('.card');
 
-/* ===============================
-   Focus active card
-================================ */
+/* Focus on center */
 function setActiveCard(){
   const center = track.scrollLeft + track.offsetWidth / 2;
-
   cards.forEach(card => {
-    const cardCenter =
-      card.offsetLeft + card.offsetWidth / 2;
-
+    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
     card.classList.toggle(
       'active',
-      Math.abs(center - cardCenter) < card.offsetWidth / 2
+      Math.abs(center - cardCenter) < card.offsetWidth/2
     );
   });
 }
-
 track.addEventListener('scroll', () => {
   requestAnimationFrame(setActiveCard);
 });
 
-/* ===============================
-   Click to center
-================================ */
+/* Wheel support for desktop */
+track.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  track.scrollLeft += e.deltaY;
+}, {passive:false});
+
+/* Mouse drag support */
+let isDown = false, startX, scrollLeft;
+track.addEventListener('pointerdown', (e) => {
+  isDown = true;
+  startX = e.clientX;
+  scrollLeft = track.scrollLeft;
+  track.classList.add('dragging');
+});
+track.addEventListener('pointermove', (e) => {
+  if (!isDown) return;
+  track.scrollLeft = scrollLeft - (e.clientX - startX);
+});
+track.addEventListener('pointerup', () => { isDown=false; track.classList.remove('dragging'); });
+track.addEventListener('pointerleave', () => { isDown=false; track.classList.remove('dragging'); });
+
+/* click to center */
 cards.forEach(card => {
   card.addEventListener('click', () => {
     track.scrollTo({
-      left:
-        card.offsetLeft -
-        track.offsetWidth / 2 +
-        card.offsetWidth / 2,
-      behavior: 'smooth'
+      left: card.offsetLeft - track.offsetWidth/2 + card.offsetWidth/2,
+      behavior:'smooth'
     });
   });
 });
 
-/* ===============================
-   Pointer Drag (Mouse + Touch)
-================================ */
-let isDragging = false;
-let startX = 0;
-let startScroll = 0;
-
-track.addEventListener('pointerdown', (e) => {
-  isDragging = true;
-  track.setPointerCapture(e.pointerId);
-  startX = e.clientX;
-  startScroll = track.scrollLeft;
-  track.classList.add('dragging');
-});
-
-track.addEventListener('pointermove', (e) => {
-  if (!isDragging) return;
-  const dx = e.clientX - startX;
-  track.scrollLeft = startScroll - dx;
-});
-
-track.addEventListener('pointerup', () => {
-  isDragging = false;
-  track.classList.remove('dragging');
-});
-
-track.addEventListener('pointercancel', () => {
-  isDragging = false;
-  track.classList.remove('dragging');
-});
-
-/* ===============================
-   Init
-================================ */
+/* init */
 setActiveCard();
