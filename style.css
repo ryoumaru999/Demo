@@ -1,34 +1,57 @@
-.slider {
-  display: flex;
-  gap: 32px;
-  padding: 60px;
+const track = document.getElementById("track");
+const cards = [...document.querySelectorAll(".card")];
 
-  overflow-x: auto;
-  overflow-y: hidden;
+let index = 0;
+let startX = 0;
+let currentX = 0;
+let dragging = false;
 
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
+/* ===== focus ===== */
+function update() {
+  cards.forEach((c, i) =>
+    c.classList.toggle("active", i === index)
+  );
 
-  cursor: grab;
+  const cardWidth = cards[0].offsetWidth + 40;
+  track.style.transform =
+    `translateX(${-(cardWidth * index)}px)`;
 }
 
-.slider:active {
-  cursor: grabbing;
-}
+update();
 
-/* ❌ ห้าม pointer-events none */
-.card {
-  flex: 0 0 320px;
-  height: 480px;
+/* ===== mouse ===== */
+track.addEventListener("mousedown", e => {
+  dragging = true;
+  startX = e.clientX;
+});
 
-  scroll-snap-align: center;
+window.addEventListener("mousemove", e => {
+  if (!dragging) return;
+  currentX = e.clientX;
+});
 
-  opacity: 0.35;
-  transform: scale(0.85);
-  transition: 0.35s ease;
-}
+window.addEventListener("mouseup", () => {
+  if (!dragging) return;
+  const diff = currentX - startX;
 
-.card.active {
-  opacity: 1;
-  transform: scale(1);
-}
+  if (diff < -50 && index < cards.length - 1) index++;
+  if (diff > 50 && index > 0) index--;
+
+  dragging = false;
+  update();
+});
+
+/* ===== touch ===== */
+track.addEventListener("touchstart", e => {
+  startX = e.touches[0].clientX;
+});
+
+track.addEventListener("touchend", e => {
+  const endX = e.changedTouches[0].clientX;
+  const diff = endX - startX;
+
+  if (diff < -50 && index < cards.length - 1) index++;
+  if (diff > 50 && index > 0) index--;
+
+  update();
+});
