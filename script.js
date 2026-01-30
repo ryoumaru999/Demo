@@ -1,43 +1,29 @@
-const track = document.querySelector('.track');
-const cards = document.querySelectorAll('.card');
-
-/* ===== CLICK เข้า product ===== */
-cards.forEach(card => {
+/* ===== CARD CLICK ===== */
+document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('click', () => {
     const model = card.dataset.model;
-    if (model) {
-      window.location.href = `product.html?model=${model}`;
-    }
+    window.location.href = `product.html?model=${model}`;
   });
 });
 
-/* ===== AUTO FOCUS CENTER ===== */
-function updateActiveCard() {
-  const center = window.innerWidth / 2;
-  let closest = null;
-  let minDistance = Infinity;
+/* ===== NAV UNDERLINE ===== */
+const links = document.querySelectorAll('.nav-link');
+const indicator = document.querySelector('.nav-indicator');
 
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    const cardCenter = rect.left + rect.width / 2;
-    const distance = Math.abs(center - cardCenter);
-
-    if (distance < minDistance) {
-      minDistance = distance;
-      closest = card;
-    }
-  });
-
-  cards.forEach(c => c.classList.remove('active'));
-  if (closest) closest.classList.add('active');
+function moveIndicator(el) {
+  indicator.style.width = el.offsetWidth + 'px';
+  indicator.style.left = el.offsetLeft + 'px';
 }
 
-/* debounce scroll */
-let scrollTimeout;
-track.addEventListener('scroll', () => {
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(updateActiveCard, 120);
+links.forEach(link => {
+  link.addEventListener('click', () => {
+    links.forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+    moveIndicator(link);
+  });
 });
 
-/* initial */
-updateActiveCard();
+window.addEventListener('load', () => {
+  const active = document.querySelector('.nav-link.active');
+  moveIndicator(active);
+});
