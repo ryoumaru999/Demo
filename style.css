@@ -141,3 +141,26 @@ nav span.active{
 .card p{
   opacity:.7;
 }
+/* ===== Expand Animation ===== */
+.card{
+  transform-origin:center center;
+}
+
+.card.expanding{
+  position:fixed;
+  inset:0;
+  z-index:999;
+
+  margin:auto;
+  width:100vw;
+  height:100vh;
+  max-width:none;
+
+  border-radius:0;
+
+  transform:scale(1);
+  filter:none;
+  opacity:1;
+
+  transition:all .45s cubic-bezier(.4,0,.2,1);
+}
