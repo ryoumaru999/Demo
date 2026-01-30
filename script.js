@@ -1,29 +1,26 @@
 const track = document.getElementById('track');
 const cards = document.querySelectorAll('.card');
 
-let isDragging = false;
 let startX = 0;
+let isDragging = false;
 
-/* ===== Active card ===== */
-function updateActiveCard(){
+/* ===== Active Card ===== */
+function updateActive(){
   const center = track.scrollLeft + track.offsetWidth / 2;
 
   cards.forEach(card=>{
     const cardCenter = card.offsetLeft + card.offsetWidth / 2;
     const distance = Math.abs(center - cardCenter);
 
-    if(distance < card.offsetWidth * 0.45){
-      card.classList.add('active');
-    }else{
-      card.classList.remove('active');
-    }
+    card.classList.toggle('active', distance < card.offsetWidth * 0.45);
   });
 }
 
-track.addEventListener('scroll', ()=>{
-  requestAnimationFrame(updateActiveCard);
+track.addEventListener('scroll', () => {
+  requestAnimationFrame(updateActive);
 });
-window.addEventListener('load', updateActiveCard);
+
+window.addEventListener('load', updateActive);
 
 /* ===== Touch detect ===== */
 track.addEventListener('touchstart', e=>{
@@ -32,8 +29,7 @@ track.addEventListener('touchstart', e=>{
 },{passive:true});
 
 track.addEventListener('touchend', e=>{
-  const endX = e.changedTouches[0].clientX;
-  if(Math.abs(endX - startX) > 15){
+  if(Math.abs(e.changedTouches[0].clientX - startX) > 15){
     isDragging = true;
   }
 });
@@ -50,6 +46,6 @@ cards.forEach(card=>{
 
     setTimeout(()=>{
       window.location.href = link;
-    }, 420); // ตรงกับ transition
+    }, 420);
   });
 });
