@@ -1,22 +1,20 @@
-const carousel = document.querySelector('.carousel');
-const cards = [...document.querySelectorAll('.card')];
+const track = document.querySelector('.carousel');
+const cards = document.querySelectorAll('.card');
 
-let scrollTimer = null;
+let timer;
 
 function focusCenterCard() {
-  const center = carousel.scrollLeft + carousel.offsetWidth / 2;
-
+  const center = window.innerWidth / 2;
   let closest = null;
-  let minDistance = Infinity;
+  let minDist = Infinity;
 
   cards.forEach(card => {
-    const cardCenter =
-      card.offsetLeft + card.offsetWidth / 2;
+    const rect = card.getBoundingClientRect();
+    const cardCenter = rect.left + rect.width / 2;
+    const dist = Math.abs(center - cardCenter);
 
-    const distance = Math.abs(center - cardCenter);
-
-    if (distance < minDistance) {
-      minDistance = distance;
+    if (dist < minDist) {
+      minDist = dist;
       closest = card;
     }
   });
@@ -25,10 +23,10 @@ function focusCenterCard() {
   if (closest) closest.classList.add('active');
 }
 
-carousel.addEventListener('scroll', () => {
-  clearTimeout(scrollTimer);
-  scrollTimer = setTimeout(focusCenterCard, 120);
+track.addEventListener('scroll', () => {
+  clearTimeout(timer);
+  timer = setTimeout(focusCenterCard, 80);
 });
 
-// เรียกครั้งแรก
+// initial
 focusCenterCard();
