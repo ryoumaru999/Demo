@@ -1,69 +1,148 @@
-/* ===== SLIDER WRAPPER ===== */
+/* RESET */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow-x: hidden;
+}
+
+/* ================= HEADER ================= */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.9);
+  padding: 14px 16px;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-size: 16px;
+}
+
+nav a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+nav a.active {
+  color: #fff;
+  position: relative;
+}
+
+nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+/* ================= SLIDER ================= */
 .slider {
+  margin-top: 20px;
+  padding: 30px 0 60px;
+  overflow-x: auto;
   display: flex;
   gap: 24px;
-  overflow-x: auto;
+
   scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+
   -webkit-overflow-scrolling: touch;
-  padding: 40px 20px;
 }
 
 .slider::-webkit-scrollbar {
   display: none;
 }
 
-/* ===== CARD ===== */
+/* ================= CARD ================= */
 .card {
-  flex: 0 0 260px;            /* ล็อกขนาดการ์ด */
-  height: 380px;
-  background: radial-gradient(circle at top, #222, #000);
-  border-radius: 28px;
+  flex: 0 0 78%;
+  max-width: 78%;
+
   scroll-snap-align: center;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background: radial-gradient(
+    circle at top,
+    #1a1a1a,
+    #000
+  );
+
+  border-radius: 28px;
+  padding: 24px 20px 30px;
+
+  text-align: center;
 
   transition: 
-    transform 0.45s cubic-bezier(.4,0,.2,1),
-    opacity 0.3s ease,
-    filter 0.3s ease;
-
-  transform: scale(0.88);
-  opacity: 0.45;
-  filter: blur(1px);
+    transform 0.35s ease,
+    opacity 0.35s ease,
+    filter 0.35s ease;
 }
 
-/* ===== ACTIVE CARD ===== */
+/* การ์ดที่ไม่โฟกัส */
+.card:not(.active) {
+  opacity: 0.35;
+  transform: scale(0.88);
+  filter: blur(0.3px);
+}
+
+/* การ์ดที่โฟกัส */
 .card.active {
-  transform: scale(1);
   opacity: 1;
+  transform: scale(1);
   filter: none;
 }
 
-/* ===== IMAGE ===== */
+/* ================= IMAGE ================= */
 .card img {
-  width: 180px;          /* 🔒 ล็อกขนาดรูป */
+  width: 100%;
+  max-width: 240px;
   height: auto;
+
+  display: block;
+  margin: 0 auto 18px;
+
   object-fit: contain;
+  object-position: center;
+
   pointer-events: none;
-  transition: transform 0.45s ease;
+  user-select: none;
 }
 
-.card.active img {
-  transform: scale(1.05);
-}
-
-/* ===== TEXT ===== */
+/* ================= TEXT ================= */
 .card h2 {
-  margin-top: 16px;
-  font-size: 20px;
-  color: #fff;
+  margin: 10px 0 6px;
+  font-size: 22px;
+  font-weight: 600;
 }
 
 .card p {
-  margin-top: 4px;
-  font-size: 14px;
+  margin: 0;
+  font-size: 15px;
   color: #aaa;
+}
+
+/* ================= DESKTOP ================= */
+@media (min-width: 768px) {
+  .slider {
+    justify-content: center;
+  }
+
+  .card {
+    flex: 0 0 320px;
+    max-width: 320px;
+  }
 }
