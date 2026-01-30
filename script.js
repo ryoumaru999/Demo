@@ -4,7 +4,7 @@ const cards = document.querySelectorAll('.card');
 let isDragging = false;
 let startX = 0;
 
-/* ===== Active card ===== */
+/* ===== Focus card ===== */
 function updateActiveCard(){
   const center = track.scrollLeft + track.offsetWidth / 2;
 
@@ -23,7 +23,7 @@ function updateActiveCard(){
 track.addEventListener('scroll', updateActiveCard);
 window.addEventListener('load', updateActiveCard);
 
-/* ===== Detect drag ===== */
+/* ===== Drag detect ===== */
 track.addEventListener('touchstart', e=>{
   isDragging = false;
   startX = e.touches[0].clientX;
@@ -35,14 +35,14 @@ track.addEventListener('touchmove', e=>{
   }
 });
 
-/* ===== Click to product ===== */
+/* ===== Click card ===== */
 cards.forEach(card=>{
   card.addEventListener('click', ()=>{
-    if(isDragging) return;
+    if(isDragging) return; // ❌ ถ้าปัด ไม่เปิด
 
     const link = card.dataset.link;
     if(link){
-      window.location.href = link;
+      window.location.href = link; // หรือ window.open(link)
     }
   });
 });
