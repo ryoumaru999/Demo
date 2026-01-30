@@ -1,29 +1,29 @@
-const carousel = document.querySelector('.carousel');
 const cards = document.querySelectorAll('.card');
 
-function updateActiveCard() {
-  const center = window.innerWidth / 2;
-  let closest = null;
-  let minDistance = Infinity;
-
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    const cardCenter = rect.left + rect.width / 2;
-    const distance = Math.abs(center - cardCenter);
-
-    if (distance < minDistance) {
-      minDistance = distance;
-      closest = card;
-    }
+/* click เข้า product */
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    const model = card.dataset.model;
+    window.location.href = `product.html?model=${model}`;
   });
-
-  cards.forEach(c => c.classList.remove('active'));
-  if (closest) closest.classList.add('active');
-}
-
-carousel.addEventListener('scroll', () => {
-  clearTimeout(carousel._t);
-  carousel._t = setTimeout(updateActiveCard, 80);
 });
 
-updateActiveCard();
+/* ขีดเส้นใต้เมนู */
+const nav = document.querySelector('.main-nav');
+const indicator = document.querySelector('.nav-indicator');
+const active = nav.querySelector('.active');
+
+function moveIndicator(el) {
+  indicator.style.width = el.offsetWidth + 'px';
+  indicator.style.left = el.offsetLeft + 'px';
+}
+
+moveIndicator(active);
+
+nav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    nav.querySelector('.active')?.classList.remove('active');
+    link.classList.add('active');
+    moveIndicator(link);
+  });
+});
