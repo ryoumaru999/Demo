@@ -37,7 +37,6 @@ html, body{
 nav span{
   margin-left:16px;
   opacity:.5;
-  font-size:16px;
 }
 
 nav span.active{
@@ -47,25 +46,21 @@ nav span.active{
 /* ===== Carousel ===== */
 .carousel{
   padding-top:90px;
+  padding-bottom:32px; /* ⭐ ปิดช่องว่างล่าง */
 }
 
 /* ===== Track ===== */
 .track{
-  min-height:calc(100vh - 120px);
-
   display:flex;
   gap:24px;
-  padding:20px;
+  padding:0 20px; /* ❗ ไม่มี padding-vertical */
   align-items:center;
 
   overflow-x:auto;
   overflow-y:hidden;
 
   scroll-snap-type:x mandatory;
-  scroll-behavior:smooth;
   -webkit-overflow-scrolling:touch;
-
-  touch-action:pan-x;
 }
 
 .track::-webkit-scrollbar{
@@ -74,8 +69,6 @@ nav span.active{
 
 /* ===== Card ===== */
 .card{
-  position:relative;
-
   flex:0 0 80%;
   max-width:80%;
   height:520px;
@@ -92,7 +85,6 @@ nav span.active{
 
   cursor:pointer;
 
-  /* non-active */
   transform:scale(.94);
   filter:blur(1px);
   opacity:.6;
@@ -120,7 +112,7 @@ nav span.active{
 
 .card img{
   width:100%;
-  max-height:400px; /* ⭐ ปรับขนาดรูปตรงนี้ */
+  max-height:400px;
   object-fit:contain;
 }
 
@@ -132,12 +124,10 @@ nav span.active{
 
 .info h2{
   font-size:22px;
-  font-weight:600;
   margin-bottom:6px;
 }
 
 .info p{
-  font-size:16px;
   opacity:.7;
 }
 
@@ -146,7 +136,7 @@ nav span.active{
   display:flex;
   justify-content:center;
   gap:8px;
-  margin:10px 0 6px;
+  margin:10px 0;
 }
 
 .c{
@@ -160,7 +150,7 @@ nav span.active{
 .orange{background:#c86a2b}
 .silver{background:#ccc}
 
-/* ===== CTA (visual only) ===== */
+/* ===== CTA ===== */
 .cta{
   margin-top:14px;
   padding:10px 20px;
